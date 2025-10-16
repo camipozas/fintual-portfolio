@@ -1,0 +1,22 @@
+# Tests
+tests/
+*.test.ts
+*.test.tsx
+*.spec.ts
+vitest.config.ts
+
+# Test outputs
+coverage/
+
+# CI/CD
+.github/
+
+# Documentation
+*.md
+!README.md
+
+# Development
+.vscode/
+.idea/
+*.log
+
