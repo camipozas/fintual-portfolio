@@ -1,4 +1,5 @@
 # Next.js portfolio module with rebalance service
+
 _Exported on 10/16/2025 at 16:03:37 GMT-3 from Cursor (1.7.46)_
 
 ---
@@ -37,37 +38,37 @@ Tests con Vitest (unidad para helpers y servicio; y uno e2e simple del handler).
 
 Estructura esperada
 src/
-  app/
-    api/
-      rebalance/
-        route.ts
-  lib/portfolio/
-    entities/
-      Stock.ts
-      Portfolio.ts
-    value-objects/
-      Allocation.ts
-    ports/
-      PriceSource.ts
-    helpers/
-      weights.ts
-      symbols.ts
-      orders.ts
-      math.ts
-    services/
-      RebalanceService.ts
-    dto/
-      types.ts
-      schemas.ts
-  lib/config/
-    ts.ts
+app/
+api/
+rebalance/
+route.ts
+lib/portfolio/
+entities/
+Stock.ts
+Portfolio.ts
+value-objects/
+Allocation.ts
+ports/
+PriceSource.ts
+helpers/
+weights.ts
+symbols.ts
+orders.ts
+math.ts
+services/
+RebalanceService.ts
+dto/
+types.ts
+schemas.ts
+lib/config/
+ts.ts
 tests/
-  unit/
-    weights.test.ts
-    orders.test.ts
-    service.test.ts
-  e2e/
-    api.rebalance.test.ts
+unit/
+weights.test.ts
+orders.test.ts
+service.test.ts
+e2e/
+api.rebalance.test.ts
 package.json
 tsconfig.json
 vitest.config.ts
@@ -161,49 +162,47 @@ Contenido de archivos (directrices)
 tsconfig.json
 
 {
-  "compilerOptions": {
-    "target": "ES2021",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "rootDir": "src",
-    "outDir": "dist",
-    "strict": true,
-    "skipLibCheck": true,
-    "verbatimModuleSyntax": true,
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
-    "isolatedModules": true
-  },
-  "include": ["src", "tests"]
+"compilerOptions": {
+"target": "ES2021",
+"module": "ESNext",
+"moduleResolution": "bundler",
+"rootDir": "src",
+"outDir": "dist",
+"strict": true,
+"skipLibCheck": true,
+"verbatimModuleSyntax": true,
+"noUncheckedIndexedAccess": true,
+"exactOptionalPropertyTypes": true,
+"isolatedModules": true
+},
+"include": ["src", "tests"]
 }
-
 
 package.json (scripts mínimos)
 
 {
-  "name": "portfolio-next",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "test": "vitest run",
-    "test:watch": "vitest"
-  },
-  "dependencies": {
-    "next": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "zod": "latest"
-  },
-  "devDependencies": {
-    "typescript": "latest",
-    "vitest": "latest",
-    "@types/node": "latest"
-  }
+"name": "portfolio-next",
+"private": true,
+"type": "module",
+"scripts": {
+"dev": "next dev",
+"build": "next build",
+"start": "next start",
+"test": "vitest run",
+"test:watch": "vitest"
+},
+"dependencies": {
+"next": "latest",
+"react": "latest",
+"react-dom": "latest",
+"zod": "latest"
+},
+"devDependencies": {
+"typescript": "latest",
+"vitest": "latest",
+"@types/node": "latest"
 }
-
+}
 
 src/lib/portfolio/helpers/math.ts
 
@@ -247,25 +246,24 @@ tests/e2e/api.rebalance.test.ts con app levantado (o testeando handler puro impo
 
 Ejemplo de request (para el e2e y README)
 curl -X POST http://localhost:3000/api/rebalance \
-  -H "Content-Type: application/json" \
-  -d '{
-    "positions":[{"symbol":"META","shares":10},{"symbol":"AAPL","shares":5},{"symbol":"NFLX","shares":2}],
-    "allocation":{"META":0.4,"AAPL":0.6},
-    "prices":{"META":350,"AAPL":180,"NFLX":600},
-    "options":{"fractional":true,"band":0.001,"minNotional":1}
-  }'
-
+ -H "Content-Type: application/json" \
+ -d '{
+"positions":[{"symbol":"META","shares":10},{"symbol":"AAPL","shares":5},{"symbol":"NFLX","shares":2}],
+"allocation":{"META":0.4,"AAPL":0.6},
+"prices":{"META":350,"AAPL":180,"NFLX":600},
+"options":{"fractional":true,"band":0.001,"minNotional":1}
+}'
 
 Respuesta esperada (shape):
 
 {
-  "orders":[
-    {"symbol":"NFLX","side":"SELL","shares":2,"price":600,"notional":1200},
-    {"symbol":"AAPL","side":"BUY","shares":X,"price":180,"notional":Y},
-    {"symbol":"META","side":"SELL","shares":Z,"price":350,"notional":W}
-  ],
-  "net": 0.00,
-  "totalValue":  ...number
+"orders":[
+{"symbol":"NFLX","side":"SELL","shares":2,"price":600,"notional":1200},
+{"symbol":"AAPL","side":"BUY","shares":X,"price":180,"notional":Y},
+{"symbol":"META","side":"SELL","shares":Z,"price":350,"notional":W}
+],
+"net": 0.00,
+"totalValue": ...number
 }
 
 Criterios de aceptación
@@ -348,7 +346,6 @@ I'll now implement the portfolio rebalancing module according to the approved pl
     "vitest": "^2.1.4"
   }
 }
-
 ```
 
 ```jsonc
@@ -372,13 +369,12 @@ I'll now implement the portfolio rebalancing module according to the approved pl
     "incremental": true,
     "plugins": [{ "name": "next" }],
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"],
+    },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }
-
 ```
 
 ```typescript
@@ -396,7 +392,6 @@ export default defineConfig({
     },
   },
 });
-
 ```
 
 ```javascript
@@ -404,7 +399,6 @@ export default defineConfig({
 const nextConfig = {};
 
 export default nextConfig;
-
 ```
 
 ## 2. Helpers Layer (Pure Functions)
@@ -416,7 +410,6 @@ export function roundShares(x: number, fractional: boolean): number {
   }
   return Math.round(x);
 }
-
 ```
 
 ```typescript
@@ -431,7 +424,6 @@ export function assertUnit(weights: Record<string, number>): void {
     throw new Error(`Allocation weights must sum to 1, got ${sum}`);
   }
 }
-
 ```
 
 ```typescript
@@ -439,13 +431,12 @@ import type { Position, Weights } from '../dto/types.js';
 
 export function collectSymbols(positions: Position[], weights: Weights): string[] {
   const symbolSet = new Set<string>();
-  
-  positions.forEach(p => symbolSet.add(p.symbol));
-  Object.keys(weights).forEach(s => symbolSet.add(s));
-  
+
+  positions.forEach((p) => symbolSet.add(p.symbol));
+  Object.keys(weights).forEach((s) => symbolSet.add(s));
+
   return Array.from(symbolSet);
 }
-
 ```
 
 ```typescript
@@ -524,8 +515,8 @@ export function adjustNetToZero(orders: Order[], fractional: boolean): void {
   if (Math.abs(net) < 0.01) return;
 
   const targetSide = net > 0 ? 'BUY' : 'SELL';
-  const pivot = orders.find(o => o.side === targetSide);
-  
+  const pivot = orders.find((o) => o.side === targetSide);
+
   if (!pivot) return;
 
   const adjustment = Math.abs(net) / pivot.price;
@@ -539,7 +530,6 @@ export function adjustNetToZero(orders: Order[], fractional: boolean): void {
     pivot.notional = newShares * pivot.price;
   }
 }
-
 ```
 
 ## 3. DTOs (Types and Schemas)
@@ -572,7 +562,6 @@ export interface PlanResult {
   net: number;
   totalValue: number;
 }
-
 ```
 
 ```typescript
@@ -609,7 +598,6 @@ export const rebalanceResponseSchema = z.object({
   net: z.number(),
   totalValue: z.number(),
 });
-
 ```
 
 ## 4. Entities
@@ -618,14 +606,13 @@ export const rebalanceResponseSchema = z.object({
 export class Stock {
   constructor(
     public readonly symbol: string,
-    public readonly shares: number,
+    public readonly shares: number
   ) {}
 
   marketValue(price: number): number {
     return this.shares * price;
   }
 }
-
 ```
 
 ```typescript
@@ -645,7 +632,6 @@ export class Portfolio {
     }, 0);
   }
 }
-
 ```
 
 ## 5. Value Objects
@@ -662,7 +648,6 @@ export class Allocation {
     this.weights = weights;
   }
 }
-
 ```
 
 ## 6. Ports
@@ -673,7 +658,6 @@ import type { Prices } from '../dto/types.js';
 export interface PriceSource {
   getPrices(symbols: string[]): Promise<Prices>;
 }
-
 ```
 
 ## 7. Service Layer
@@ -689,7 +673,7 @@ export class RebalanceService {
     positions: Position[],
     allocation: Weights,
     prices: Prices,
-    options?: PlanOptions,
+    options?: PlanOptions
   ): PlanResult {
     const fractional = options?.fractional ?? true;
     const band = options?.band ?? 0.001;
@@ -698,7 +682,7 @@ export class RebalanceService {
     assertUnit(allocation);
 
     const allSymbols = collectSymbols(positions, allocation);
-    const positionsBySymbol = new Map(positions.map(p => [p.symbol, p]));
+    const positionsBySymbol = new Map(positions.map((p) => [p.symbol, p]));
 
     const total = positions.reduce((sum, p) => {
       const price = prices[p.symbol];
@@ -732,7 +716,6 @@ export class RebalanceService {
     };
   }
 }
-
 ```
 
 ## 8. API Route Handler
@@ -751,7 +734,7 @@ export async function POST(request: NextRequest) {
     if (!validation.success) {
       return NextResponse.json(
         { error: 'Invalid request', details: validation.error.errors },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -765,7 +748,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-
 ```
 
 ## 9. Unit Tests
@@ -806,7 +788,6 @@ describe('weights', () => {
     });
   });
 });
-
 ```
 
 ```typescript
@@ -831,9 +812,9 @@ describe('orders', () => {
         minNotional: 0,
       });
 
-      const sellOrders = orders.filter(o => o.side === 'SELL');
-      const buyOrders = orders.filter(o => o.side === 'BUY');
-      
+      const sellOrders = orders.filter((o) => o.side === 'SELL');
+      const buyOrders = orders.filter((o) => o.side === 'BUY');
+
       if (sellOrders.length > 0 && buyOrders.length > 0) {
         const lastSellIndex = orders.lastIndexOf(sellOrders[sellOrders.length - 1]!);
         const firstBuyIndex = orders.indexOf(buyOrders[0]!);
@@ -853,7 +834,7 @@ describe('orders', () => {
         minNotional: 10,
       });
 
-      expect(orders.every(o => o.notional >= 10)).toBe(true);
+      expect(orders.every((o) => o.notional >= 10)).toBe(true);
     });
 
     it('sorts by notional within same side', () => {
@@ -872,7 +853,7 @@ describe('orders', () => {
         minNotional: 0,
       });
 
-      const sellOrders = orders.filter(o => o.side === 'SELL');
+      const sellOrders = orders.filter((o) => o.side === 'SELL');
       for (let i = 1; i < sellOrders.length; i++) {
         expect(sellOrders[i - 1]!.notional).toBeGreaterThanOrEqual(sellOrders[i]!.notional);
       }
@@ -926,7 +907,6 @@ describe('orders', () => {
     });
   });
 });
-
 ```
 
 ```typescript
@@ -943,10 +923,10 @@ describe('RebalanceService', () => {
           { symbol: 'NFLX', shares: 2 },
         ],
         { META: 0.4, AAPL: 0.6 },
-        { META: 350, AAPL: 180, NFLX: 600 },
+        { META: 350, AAPL: 180, NFLX: 600 }
       );
 
-      const nflxOrder = result.orders.find(o => o.symbol === 'NFLX');
+      const nflxOrder = result.orders.find((o) => o.symbol === 'NFLX');
       expect(nflxOrder).toBeDefined();
       expect(nflxOrder?.side).toBe('SELL');
       expect(nflxOrder?.shares).toBe(2);
@@ -957,10 +937,10 @@ describe('RebalanceService', () => {
         [{ symbol: 'AAPL', shares: 10 }],
         { AAPL: 0.5, META: 0.5 },
         { AAPL: 180, META: 350 },
-        { fractional: false },
+        { fractional: false }
       );
 
-      result.orders.forEach(order => {
+      result.orders.forEach((order) => {
         expect(order.shares % 1).toBe(0);
       });
     });
@@ -972,7 +952,7 @@ describe('RebalanceService', () => {
           { symbol: 'AAPL', shares: 5 },
         ],
         { META: 0.4, AAPL: 0.6 },
-        { META: 350, AAPL: 180 },
+        { META: 350, AAPL: 180 }
       );
 
       expect(Math.abs(result.net)).toBeLessThanOrEqual(0.01);
@@ -985,7 +965,7 @@ describe('RebalanceService', () => {
           { symbol: 'AAPL', shares: 5 },
         ],
         { META: 0.5, AAPL: 0.5 },
-        { META: 350, AAPL: 180 },
+        { META: 350, AAPL: 180 }
       );
 
       expect(result.totalValue).toBe(10 * 350 + 5 * 180);
@@ -996,33 +976,24 @@ describe('RebalanceService', () => {
         RebalanceService.plan(
           [{ symbol: 'AAPL', shares: 10 }],
           { AAPL: 0.5, META: 0.4 },
-          { AAPL: 180, META: 350 },
-        ),
+          { AAPL: 180, META: 350 }
+        )
       ).toThrow('must sum to 1');
     });
 
     it('throws on missing price', () => {
       expect(() =>
-        RebalanceService.plan(
-          [{ symbol: 'AAPL', shares: 10 }],
-          { AAPL: 1.0 },
-          {},
-        ),
+        RebalanceService.plan([{ symbol: 'AAPL', shares: 10 }], { AAPL: 1.0 }, {})
       ).toThrow('Missing or invalid price');
     });
 
     it('throws on invalid price', () => {
       expect(() =>
-        RebalanceService.plan(
-          [{ symbol: 'AAPL', shares: 10 }],
-          { AAPL: 1.0 },
-          { AAPL: 0 },
-        ),
+        RebalanceService.plan([{ symbol: 'AAPL', shares: 10 }], { AAPL: 1.0 }, { AAPL: 0 })
       ).toThrow('Missing or invalid price');
     });
   });
 });
-
 ```
 
 ## 10. E2E Test
@@ -1058,7 +1029,7 @@ describe('POST /api/rebalance', () => {
     expect(data).toHaveProperty('totalValue');
     expect(Array.isArray(data.orders)).toBe(true);
     expect(Math.abs(data.net)).toBeLessThanOrEqual(0.01);
-    
+
     const nflxOrder = data.orders.find((o: any) => o.symbol === 'NFLX');
     expect(nflxOrder?.side).toBe('SELL');
     expect(nflxOrder?.shares).toBe(2);
@@ -1118,12 +1089,11 @@ describe('POST /api/rebalance', () => {
     expect(data.error).toBe('Invalid request');
   });
 });
-
 ```
 
 ## 11. Documentation and Next.js Setup
 
-```markdown
+````markdown
 # Portfolio Rebalance Module
 
 A Next.js portfolio rebalancing module built with SOLID principles, TypeScript, and comprehensive testing.
@@ -1133,6 +1103,7 @@ A Next.js portfolio rebalancing module built with SOLID principles, TypeScript, 
 ```bash
 npm install
 ```
+````
 
 ## Development
 
@@ -1214,10 +1185,10 @@ curl -X POST http://localhost:3000/api/rebalance \
       "side": "BUY",
       "shares": 10.666667,
       "price": 180,
-      "notional": 1920.00
+      "notional": 1920.0
     }
   ],
-  "net": 0.00,
+  "net": 0.0,
   "totalValue": 4700
 }
 ```
@@ -1264,7 +1235,7 @@ npm run build
 npm start
 ```
 
-```
+````
 
 ```typescriptreact
 import type { Metadata } from 'next';
@@ -1286,7 +1257,7 @@ export default function RootLayout({
   );
 }
 
-```
+````
 
 ```typescriptreact
 export default function Home() {
@@ -1319,7 +1290,7 @@ export async function POST(request: NextRequest) {
     if (!validation.success) {
       return NextResponse.json(
         { error: 'Invalid request', details: validation.error.errors },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -1341,8 +1312,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-
-
 ```
 
 Let me check the exact types and fix this properly:
@@ -1375,8 +1344,6 @@ export interface PlanResult {
   net: number;
   totalValue: number;
 }
-
-
 ```
 
 ```typescript
@@ -1393,7 +1360,7 @@ export async function POST(request: NextRequest) {
     if (!validation.success) {
       return NextResponse.json(
         { error: 'Invalid request', details: validation.error.errors },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -1407,8 +1374,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-
-
 ```
 
 ```ignore
@@ -1497,7 +1462,7 @@ tests/
 - **SOLID Principles**: Single responsibility per file, clean separation of concerns
 - **Type Safety**: Strict TypeScript with `verbatimModuleSyntax` and `exactOptionalPropertyTypes`
 - **ESM Imports**: All internal imports use `.js` suffix as required
-- **Smart Rebalancing**: 
+- **Smart Rebalancing**:
   - Symbols not in allocation are fully liquidated
   - Net cash flow balanced to ±$0.01
   - Allocation weights validated to sum to 1±1e-8
@@ -1599,6 +1564,7 @@ es necesario esto?
 Tienes razón en cuestionarlo. El archivo `PriceSource.ts` **no es estrictamente necesario** para el funcionamiento actual del sistema.
 
 Mirando el código:
+
 - El endpoint recibe los `prices` directamente en el request
 - `RebalanceService.plan()` acepta `prices` como parámetro
 - **Ninguna parte del código actual usa `PriceSource`**
@@ -1608,6 +1574,7 @@ Este port fue incluido porque estaba en las especificaciones originales como una
 ## Opciones:
 
 **1. Eliminar el archivo** (recomendado para minimalismo)
+
 ```bash
 # Es código que no se usa
 ```
@@ -1724,8 +1691,8 @@ export function adjustNetToZero(orders: Order[], fractional: boolean): void {
   if (Math.abs(net) < 0.01) return;
 
   const targetSide = net > 0 ? 'BUY' : 'SELL';
-  const pivot = orders.find(o => o.side === targetSide);
-  
+  const pivot = orders.find((o) => o.side === targetSide);
+
   if (!pivot) return;
 
   const adjustment = Math.abs(net) / pivot.price;
@@ -1739,8 +1706,6 @@ export function adjustNetToZero(orders: Order[], fractional: boolean): void {
     pivot.notional = newShares * pivot.price;
   }
 }
-
-
 ```
 
 ```typescript
@@ -1753,7 +1718,7 @@ export class RebalanceService {
     positions: Position[],
     allocation: Weights,
     prices: Prices,
-    options?: PlanOptions,
+    options?: PlanOptions
   ): PlanResult {
     const fractional = options?.fractional ?? true;
     const band = options?.band ?? 0.001;
@@ -1762,11 +1727,11 @@ export class RebalanceService {
     assertUnit(allocation);
 
     const symbolSet = new Set<string>();
-    positions.forEach(p => symbolSet.add(p.symbol));
-    Object.keys(allocation).forEach(s => symbolSet.add(s));
+    positions.forEach((p) => symbolSet.add(p.symbol));
+    Object.keys(allocation).forEach((s) => symbolSet.add(s));
     const allSymbols = Array.from(symbolSet);
 
-    const positionsBySymbol = new Map(positions.map(p => [p.symbol, p]));
+    const positionsBySymbol = new Map(positions.map((p) => [p.symbol, p]));
 
     const total = positions.reduce((sum, p) => {
       const price = prices[p.symbol];
@@ -1800,13 +1765,11 @@ export class RebalanceService {
     };
   }
 }
-
-
 ```
 
 Actualizo el README para reflejar la estructura simplificada:
 
-```markdown
+````markdown
 # Portfolio Rebalance Module
 
 A Next.js portfolio rebalancing module built with SOLID principles, TypeScript, and comprehensive testing.
@@ -1816,6 +1779,7 @@ A Next.js portfolio rebalancing module built with SOLID principles, TypeScript, 
 ```bash
 npm install
 ```
+````
 
 ## Development
 
@@ -1897,10 +1861,10 @@ curl -X POST http://localhost:3000/api/rebalance \
       "side": "BUY",
       "shares": 10.666667,
       "price": 180,
-      "notional": 1920.00
+      "notional": 1920.0
     }
   ],
-  "net": 0.00,
+  "net": 0.0,
   "totalValue": 4700
 }
 ```
@@ -1953,26 +1917,28 @@ Estructura final verificada:
 ✅ **Limpieza completada**. Estructura minimalista final:
 
 ```
+
 src/
 ├── app/
-│   ├── api/rebalance/route.ts    # Endpoint
-│   ├── layout.tsx
-│   └── page.tsx
+│ ├── api/rebalance/route.ts # Endpoint
+│ ├── layout.tsx
+│ └── page.tsx
 └── lib/portfolio/
-    ├── dto/
-    │   ├── types.ts              # Tipos base
-    │   └── schemas.ts            # Validación Zod
-    ├── helpers/
-    │   ├── weights.ts            # Validación de allocation
-    │   └── orders.ts             # Lógica de órdenes + roundShares
-    └── services/
-        └── RebalanceService.ts   # Orquestación
-```
+├── dto/
+│ ├── types.ts # Tipos base
+│ └── schemas.ts # Validación Zod
+├── helpers/
+│ ├── weights.ts # Validación de allocation
+│ └── orders.ts # Lógica de órdenes + roundShares
+└── services/
+└── RebalanceService.ts # Orquestación
+
+````
 
 ## Eliminado (over-engineering):
 
 - ❌ **entities/** (Stock, Portfolio) - No se usaban
-- ❌ **value-objects/** (Allocation) - Validación redundante  
+- ❌ **value-objects/** (Allocation) - Validación redundante
 - ❌ **ports/** (PriceSource) - Interface para futuro que no existe
 - ❌ **helpers/symbols.ts** - 3 líneas triviales, ahora inline en servicio
 - ❌ **helpers/math.ts** - 1 función, ahora en orders.ts
@@ -1999,7 +1965,7 @@ src/
     │   └── orders.ts             # Lógica de órdenes + roundShares
     └── services/
         └── RebalanceService.ts   # Orquestación
-```
+````
 
 ---
 
@@ -2020,8 +1986,8 @@ import { buildRebalanceOrders, adjustNetToZero } from '../helpers/orders.js';
 
 function collectSymbols(positions: Position[], allocation: Weights): string[] {
   const symbolSet = new Set<string>();
-  positions.forEach(p => symbolSet.add(p.symbol));
-  Object.keys(allocation).forEach(s => symbolSet.add(s));
+  positions.forEach((p) => symbolSet.add(p.symbol));
+  Object.keys(allocation).forEach((s) => symbolSet.add(s));
   return Array.from(symbolSet);
 }
 
@@ -2046,7 +2012,7 @@ export function plan(
   positions: Position[],
   allocation: Weights,
   prices: Prices,
-  options?: PlanOptions,
+  options?: PlanOptions
 ): PlanResult {
   const fractional = options?.fractional ?? true;
   const band = options?.band ?? 0.001;
@@ -2055,7 +2021,7 @@ export function plan(
   assertUnit(allocation);
 
   const allSymbols = collectSymbols(positions, allocation);
-  const positionsBySymbol = new Map(positions.map(p => [p.symbol, p]));
+  const positionsBySymbol = new Map(positions.map((p) => [p.symbol, p]));
   const total = calculateTotal(positions, prices);
 
   const orders = buildRebalanceOrders({
@@ -2077,8 +2043,6 @@ export function plan(
     totalValue: total,
   };
 }
-
-
 ```
 
 Ahora actualizo el route handler para usar la función en lugar de la clase:
@@ -2097,7 +2061,7 @@ export async function POST(request: NextRequest) {
     if (!validation.success) {
       return NextResponse.json(
         { error: 'Invalid request', details: validation.error.errors },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -2111,8 +2075,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-
-
 ```
 
 ```typescript
@@ -2129,7 +2091,7 @@ export async function POST(request: NextRequest) {
     if (!validation.success) {
       return NextResponse.json(
         { error: 'Invalid request', details: validation.error.errors },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -2143,8 +2105,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-
-
 ```
 
 Actualizo los tests para usar la función en lugar de la clase:
@@ -2828,92 +2788,78 @@ import { plan } from '@/lib/portfolio/services/RebalanceService.js';
 describe('plan', () => {
   it('liquidates symbols not in allocation', () => {
     const result = plan(
-        [
-          { symbol: 'META', shares: 10 },
-          { symbol: 'AAPL', shares: 5 },
-          { symbol: 'NFLX', shares: 2 },
-        ],
-        { META: 0.4, AAPL: 0.6 },
-        { META: 350, AAPL: 180, NFLX: 600 },
-      );
+      [
+        { symbol: 'META', shares: 10 },
+        { symbol: 'AAPL', shares: 5 },
+        { symbol: 'NFLX', shares: 2 },
+      ],
+      { META: 0.4, AAPL: 0.6 },
+      { META: 350, AAPL: 180, NFLX: 600 }
+    );
 
-      const nflxOrder = result.orders.find(o => o.symbol === 'NFLX');
-      expect(nflxOrder).toBeDefined();
-      expect(nflxOrder?.side).toBe('SELL');
-      expect(nflxOrder?.shares).toBe(2);
-    });
+    const nflxOrder = result.orders.find((o) => o.symbol === 'NFLX');
+    expect(nflxOrder).toBeDefined();
+    expect(nflxOrder?.side).toBe('SELL');
+    expect(nflxOrder?.shares).toBe(2);
+  });
 
   it('respects fractional=false by rounding to integers', () => {
     const result = plan(
-        [{ symbol: 'AAPL', shares: 10 }],
-        { AAPL: 0.5, META: 0.5 },
-        { AAPL: 180, META: 350 },
-        { fractional: false },
-      );
+      [{ symbol: 'AAPL', shares: 10 }],
+      { AAPL: 0.5, META: 0.5 },
+      { AAPL: 180, META: 350 },
+      { fractional: false }
+    );
 
-    result.orders.forEach(order => {
+    result.orders.forEach((order) => {
       expect(order.shares % 1).toBe(0);
     });
   });
 
   it('achieves net close to zero', () => {
     const result = plan(
-        [
-          { symbol: 'META', shares: 10 },
-          { symbol: 'AAPL', shares: 5 },
-        ],
-        { META: 0.4, AAPL: 0.6 },
-        { META: 350, AAPL: 180 },
-      );
+      [
+        { symbol: 'META', shares: 10 },
+        { symbol: 'AAPL', shares: 5 },
+      ],
+      { META: 0.4, AAPL: 0.6 },
+      { META: 350, AAPL: 180 }
+    );
 
     expect(Math.abs(result.net)).toBeLessThanOrEqual(0.01);
   });
 
   it('calculates total value correctly', () => {
     const result = plan(
-        [
-          { symbol: 'META', shares: 10 },
-          { symbol: 'AAPL', shares: 5 },
-        ],
-        { META: 0.5, AAPL: 0.5 },
-        { META: 350, AAPL: 180 },
-      );
+      [
+        { symbol: 'META', shares: 10 },
+        { symbol: 'AAPL', shares: 5 },
+      ],
+      { META: 0.5, AAPL: 0.5 },
+      { META: 350, AAPL: 180 }
+    );
 
     expect(result.totalValue).toBe(10 * 350 + 5 * 180);
   });
 
   it('throws on invalid allocation sum', () => {
     expect(() =>
-      plan(
-          [{ symbol: 'AAPL', shares: 10 }],
-          { AAPL: 0.5, META: 0.4 },
-          { AAPL: 180, META: 350 },
-      ),
+      plan([{ symbol: 'AAPL', shares: 10 }], { AAPL: 0.5, META: 0.4 }, { AAPL: 180, META: 350 })
     ).toThrow('must sum to 1');
   });
 
   it('throws on missing price', () => {
-    expect(() =>
-      plan(
-          [{ symbol: 'AAPL', shares: 10 }],
-          { AAPL: 1.0 },
-          {},
-      ),
-    ).toThrow('Missing or invalid price');
+    expect(() => plan([{ symbol: 'AAPL', shares: 10 }], { AAPL: 1.0 }, {})).toThrow(
+      'Missing or invalid price'
+    );
   });
 
   it('throws on invalid price', () => {
-    expect(() =>
-      plan(
-          [{ symbol: 'AAPL', shares: 10 }],
-          { AAPL: 1.0 },
-          { AAPL: 0 },
-      ),
-    ).toThrow('Missing or invalid price');
+    expect(() => plan([{ symbol: 'AAPL', shares: 10 }], { AAPL: 1.0 }, { AAPL: 0 })).toThrow(
+      'Missing or invalid price'
+    );
   });
 });
-
-
 ```
 
 Verifico que no haya errores:
@@ -3005,8 +2951,8 @@ export function adjustNetToZero(orders: Order[], fractional: boolean): void {
   if (Math.abs(net) < 0.01) return;
 
   const targetSide = net > 0 ? 'BUY' : 'SELL';
-  const pivot = orders.find(o => o.side === targetSide);
-  
+  const pivot = orders.find((o) => o.side === targetSide);
+
   if (!pivot) return;
 
   const adjustment = Math.abs(net) / pivot.price;
@@ -3109,8 +3055,8 @@ export function adjustNetToZero(orders: Order[], fractional: boolean): void {
   if (Math.abs(net) < 0.01) return;
 
   const targetSide = net > 0 ? 'BUY' : 'SELL';
-  const pivot = orders.find(o => o.side === targetSide);
-  
+  const pivot = orders.find((o) => o.side === targetSide);
+
   if (!pivot) return;
 
   const adjustment = Math.abs(net) / pivot.price;
@@ -3124,7 +3070,6 @@ export function adjustNetToZero(orders: Order[], fractional: boolean): void {
     pivot.notional = newShares * pivot.price;
   }
 }
-
 ```
 
 Verifico que no haya errores:
@@ -3134,6 +3079,7 @@ Perfecto! ✅ He refactorizado el código para usar **funciones puras** en lugar
 ## Cambios realizados:
 
 ### 1. **RebalanceService.ts** - Clase → Funciones
+
 ```typescript
 // Antes: clase con método estático
 export class RebalanceService {
@@ -3149,6 +3095,7 @@ export function plan(...) { ... }  // Función principal exportada
 ```
 
 ### 2. **orders.ts** - Funciones auxiliares extraídas
+
 ```typescript
 // Funciones auxiliares declaradas primero
 function roundShares(...) { ... }
@@ -3161,18 +3108,21 @@ export function adjustNetToZero(...) { ... }
 ```
 
 ### 3. **Eliminados comentarios JSDoc**
+
 - Código más limpio y minimalista
 - Los nombres de funciones son autoexplicativos
 
 ### 4. **Tests y API actualizados**
+
 - `plan()` en lugar de `RebalanceService.plan()`
 - Imports simplificados
 
 ## Beneficios:
+
 ✅ Más funcional, menos OOP innecesario  
 ✅ Funciones auxiliares declaradas antes (mejor legibilidad)  
 ✅ Sin comentarios excesivos  
-✅ Mismo comportamiento, código más limpio  
+✅ Mismo comportamiento, código más limpio
 
 Todo sigue funcionando igual, sin errores de linting. 🎯
 
@@ -3257,7 +3207,7 @@ export default function Home() {
   return (
     <main style={styles.main}>
       <h1 style={styles.title}>Portfolio Rebalance API</h1>
-      
+
       <div style={styles.container}>
         <div style={styles.section}>
           <h2 style={styles.subtitle}>Request</h2>
@@ -3267,8 +3217,8 @@ export default function Home() {
             style={styles.textarea}
             placeholder="Paste JSON request here..."
           />
-          <button 
-            onClick={handleSubmit} 
+          <button
+            onClick={handleSubmit}
             disabled={loading}
             style={{
               ...styles.button,
@@ -3388,7 +3338,7 @@ const styles = {
 
 ```
 
-```markdown
+````markdown
 # Portfolio Rebalance Module
 
 A Next.js portfolio rebalancing module built with SOLID principles, TypeScript, and comprehensive testing.
@@ -3398,6 +3348,7 @@ A Next.js portfolio rebalancing module built with SOLID principles, TypeScript, 
 ```bash
 npm install
 ```
+````
 
 ## Development
 
@@ -3481,10 +3432,10 @@ curl -X POST http://localhost:3000/api/rebalance \
       "side": "BUY",
       "shares": 10.666667,
       "price": 180,
-      "notional": 1920.00
+      "notional": 1920.0
     }
   ],
-  "net": 0.00,
+  "net": 0.0,
   "totalValue": 4700
 }
 ```
@@ -3528,7 +3479,7 @@ npm run build
 npm start
 ```
 
-```
+````
 
 ```markdown
 # Portfolio Rebalance Module
@@ -3539,7 +3490,7 @@ A Next.js portfolio rebalancing module built with SOLID principles, TypeScript, 
 
 ```bash
 npm install
-```
+````
 
 ## Development
 
@@ -3564,6 +3515,7 @@ npm test:watch
 ## API Usage
 
 You can test the API using:
+
 - **Web Interface**: Visit `http://localhost:3000` and use the built-in form
 - **cURL/Postman**: See example below
 
@@ -3627,10 +3579,10 @@ curl -X POST http://localhost:3000/api/rebalance \
       "side": "BUY",
       "shares": 10.666667,
       "price": 180,
-      "notional": 1920.00
+      "notional": 1920.0
     }
   ],
-  "net": 0.00,
+  "net": 0.0,
   "totalValue": 4700
 }
 ```
@@ -3674,7 +3626,7 @@ npm run build
 npm start
 ```
 
-```
+````
 
 Perfecto! ✅ He creado una **interfaz web minimalista** para probar la API directamente desde el navegador.
 
@@ -3698,9 +3650,10 @@ Perfecto! ✅ He creado una **interfaz web minimalista** para probar la API dire
 1. **Inicia el servidor**:
 ```bash
 npm run dev
-```
+````
 
 2. **Abre el navegador**:
+
 ```
 http://localhost:3000
 ```
@@ -3796,12 +3749,12 @@ export default function Home() {
     { symbol: 'AAPL', shares: '5' },
     { symbol: 'NFLX', shares: '2' },
   ]);
-  
+
   const [allocations, setAllocations] = useState<AllocationInput[]>([
     { symbol: 'META', weight: '0.4' },
     { symbol: 'AAPL', weight: '0.6' },
   ]);
-  
+
   const [prices, setPrices] = useState<PriceInput[]>([
     { symbol: 'META', price: '350' },
     { symbol: 'AAPL', price: '180' },
@@ -4143,7 +4096,7 @@ const styles = {
 
 ```
 
-```markdown
+````markdown
 # Portfolio Rebalance Module
 
 A Next.js portfolio rebalancing module built with SOLID principles, TypeScript, and comprehensive testing.
@@ -4153,6 +4106,7 @@ A Next.js portfolio rebalancing module built with SOLID principles, TypeScript, 
 ```bash
 npm install
 ```
+````
 
 ## Development
 
@@ -4177,6 +4131,7 @@ npm test:watch
 ## API Usage
 
 You can test the API using:
+
 - **Web Interface**: Visit `http://localhost:3000` and use the built-in form
 - **cURL/Postman**: See example below
 
@@ -4240,10 +4195,10 @@ curl -X POST http://localhost:3000/api/rebalance \
       "side": "BUY",
       "shares": 10.666667,
       "price": 180,
-      "notional": 1920.00
+      "notional": 1920.0
     }
   ],
-  "net": 0.00,
+  "net": 0.0,
   "totalValue": 4700
 }
 ```
@@ -4287,7 +4242,7 @@ npm run build
 npm start
 ```
 
-```
+````
 
 ```markdown
 # Portfolio Rebalance Module
@@ -4298,7 +4253,7 @@ A Next.js portfolio rebalancing module built with SOLID principles, TypeScript, 
 
 ```bash
 npm install
-```
+````
 
 ## Development
 
@@ -4323,6 +4278,7 @@ npm test:watch
 ## API Usage
 
 You can test the API using:
+
 - **Web Form**: Visit `http://localhost:3000` and fill out the interactive form
 - **cURL/API client**: See example below
 
@@ -4386,10 +4342,10 @@ curl -X POST http://localhost:3000/api/rebalance \
       "side": "BUY",
       "shares": 10.666667,
       "price": 180,
-      "notional": 1920.00
+      "notional": 1920.0
     }
   ],
-  "net": 0.00,
+  "net": 0.0,
   "totalValue": 4700
 }
 ```
@@ -4433,7 +4389,7 @@ npm run build
 npm start
 ```
 
-```
+````
 
 Perfecto! ✅ He creado un **formulario interactivo** mucho más amigable. Ahora el usuario puede:
 
@@ -4482,7 +4438,7 @@ Ahora es súper fácil probar diferentes escenarios solo cambiando valores en lo
 
 **User**
 
-hazlo simple con tailwind y separado según corresponda porque sino no se cumple el principio de responsabilidad unica 
+hazlo simple con tailwind y separado según corresponda porque sino no se cumple el principio de responsabilidad unica
 
 ---
 
@@ -4507,7 +4463,7 @@ const config: Config = {
 
 export default config;
 
-```
+````
 
 ```javascript
 export default {
@@ -4516,14 +4472,12 @@ export default {
     autoprefixer: {},
   },
 };
-
 ```
 
 ```css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 ```
 
 ```typescriptreact
@@ -4573,7 +4527,6 @@ export interface RebalanceOptions {
   band: string;
   minNotional: string;
 }
-
 ```
 
 ```typescriptreact
@@ -4931,7 +4884,7 @@ export function RebalanceForm() {
         <AllocationList allocations={allocations} onChange={setAllocations} />
         <PriceList prices={prices} onChange={setPrices} />
         <OptionsForm options={options} onChange={setOptions} />
-        
+
         <button
           onClick={handleSubmit}
           disabled={loading}
@@ -4964,7 +4917,7 @@ export default function Home() {
 
 ```
 
-```markdown
+````markdown
 # Portfolio Rebalance Module
 
 A Next.js portfolio rebalancing module built with SOLID principles, TypeScript, and comprehensive testing.
@@ -4974,6 +4927,7 @@ A Next.js portfolio rebalancing module built with SOLID principles, TypeScript, 
 ```bash
 npm install
 ```
+````
 
 ## Development
 
@@ -4998,6 +4952,7 @@ npm test:watch
 ## API Usage
 
 You can test the API using:
+
 - **Web Form**: Visit `http://localhost:3000` and fill out the interactive form
 - **cURL/API client**: See example below
 
@@ -5061,10 +5016,10 @@ curl -X POST http://localhost:3000/api/rebalance \
       "side": "BUY",
       "shares": 10.666667,
       "price": 180,
-      "notional": 1920.00
+      "notional": 1920.0
     }
   ],
-  "net": 0.00,
+  "net": 0.0,
   "totalValue": 4700
 }
 ```
@@ -5089,12 +5044,14 @@ Minimum order value in dollars. Orders with notional value below this threshold 
 Minimalist design with clear separation of concerns:
 
 ### Backend
+
 - **helpers/**: Pure functions (weights, orders)
 - **services/**: Business logic (plan function)
 - **dto/**: Types and validation schemas
 - **api/**: Next.js route handler
 
 ### Frontend (Tailwind CSS)
+
 - **components/rebalance/**: UI components with single responsibility
   - `PositionList.tsx`: Manages position inputs
   - `AllocationList.tsx`: Manages allocation inputs
@@ -5134,24 +5091,26 @@ Perfecto! ✅ He refactorizado completamente la UI usando **Tailwind CSS** y apl
 ### 2. **Componentes Separados** (Responsabilidad Única)
 
 ```
+
 src/components/rebalance/
-├── types.ts                  # Tipos compartidos
-├── PositionList.tsx          # Gestión de posiciones
-├── AllocationList.tsx        # Gestión de asignaciones
-├── PriceList.tsx             # Gestión de precios
-├── OptionsForm.tsx           # Opciones de rebalanceo
-├── ResultDisplay.tsx         # Visualización de resultado
-└── RebalanceForm.tsx         # Orquestador principal
-```
+├── types.ts # Tipos compartidos
+├── PositionList.tsx # Gestión de posiciones
+├── AllocationList.tsx # Gestión de asignaciones
+├── PriceList.tsx # Gestión de precios
+├── OptionsForm.tsx # Opciones de rebalanceo
+├── ResultDisplay.tsx # Visualización de resultado
+└── RebalanceForm.tsx # Orquestador principal
+
+````
 
 **Cada componente tiene UNA responsabilidad:**
 
-✅ **PositionList** - Solo maneja la lista de posiciones  
-✅ **AllocationList** - Solo maneja la lista de asignaciones  
-✅ **PriceList** - Solo maneja la lista de precios  
-✅ **OptionsForm** - Solo maneja las opciones  
-✅ **ResultDisplay** - Solo muestra el resultado  
-✅ **RebalanceForm** - Solo orquesta estado y API call  
+✅ **PositionList** - Solo maneja la lista de posiciones
+✅ **AllocationList** - Solo maneja la lista de asignaciones
+✅ **PriceList** - Solo maneja la lista de precios
+✅ **OptionsForm** - Solo maneja las opciones
+✅ **ResultDisplay** - Solo muestra el resultado
+✅ **RebalanceForm** - Solo orquesta estado y API call
 
 ### 3. **Ventajas del nuevo diseño:**
 
@@ -5179,7 +5138,7 @@ src/components/rebalance/
 ├── OptionsForm.tsx           # Opciones de rebalanceo
 ├── ResultDisplay.tsx         # Visualización de resultado
 └── RebalanceForm.tsx         # Orquestador principal
-```
+````
 
 ---
 
@@ -5205,9 +5164,7 @@ export default {
     extend: {},
   },
   plugins: [],
-}
-
-
+};
 ```
 
 Perfecto! Ahora voy a verificar que los tests sigan funcionando:
@@ -5225,27 +5182,31 @@ Perfecto! Ahora voy a verificar que los tests sigan funcionando:
   }
 ```
 
-✅ **Errores corregidos!** 
+✅ **Errores corregidos!**
 
 ## Solución aplicada:
 
 ### 1. **Problema de Tailwind CSS v4**
+
 El error era porque instalé Tailwind CSS v4 (que cambió completamente su arquitectura). Solución:
+
 - ✅ Desinstalé Tailwind v4
 - ✅ Instalé Tailwind CSS v3 (estable y compatible con Next.js)
 - ✅ Regeneré configuración con `npx tailwindcss init -p`
 
 ### 2. **Configuración actualizada:**
+
 ```js
 // tailwind.config.js
 content: [
   './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
   './src/components/**/*.{js,ts,jsx,tsx,mdx}',
   './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-]
+];
 ```
 
 ### 3. **Verificación:**
+
 ```bash
 ✓ npm run build  # Build exitoso
 ✓ npm test       # 23 tests pasando (4 archivos)
@@ -5267,7 +5228,7 @@ content: [
   './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
   './src/components/**/*.{js,ts,jsx,tsx,mdx}',
   './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-]
+];
 ```
 
 ```shellscript
@@ -5510,8 +5471,8 @@ export function AllocationList({ allocations, onChange }: Props) {
       </div>
       {allocations.length > 0 && (
         <div className={`flex items-center justify-between px-4 py-2 rounded-md text-sm ${
-          isValidTotal 
-            ? 'bg-green-50 text-green-800 border border-green-200' 
+          isValidTotal
+            ? 'bg-green-50 text-green-800 border border-green-200'
             : 'bg-yellow-50 text-yellow-800 border border-yellow-200'
         }`}>
           <span className="font-medium">Total Weight:</span>
@@ -5649,7 +5610,7 @@ export function OptionsForm({ options, onChange }: Props) {
             </p>
           </div>
         </label>
-        
+
         <div className="flex flex-col gap-2 p-3 border border-gray-200 rounded-md">
           <div className="flex items-center gap-1">
             <label className="text-sm font-medium text-gray-700">Band (Tolerance)</label>
@@ -5667,7 +5628,7 @@ export function OptionsForm({ options, onChange }: Props) {
           />
           <p className="text-xs text-gray-500">Default: 0.001</p>
         </div>
-        
+
         <div className="flex flex-col gap-2 p-3 border border-gray-200 rounded-md">
           <div className="flex items-center gap-1">
             <label className="text-sm font-medium text-gray-700">Min. Notional</label>
@@ -5781,8 +5742,8 @@ export function ResultDisplay({ result, loading }: Props) {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <span className={`px-2.5 py-1 text-xs font-semibold rounded ${
-                          order.side === 'BUY' 
-                            ? 'bg-green-100 text-green-800' 
+                          order.side === 'BUY'
+                            ? 'bg-green-100 text-green-800'
                             : 'bg-red-100 text-red-800'
                         }`}>
                           {order.side}
@@ -5913,7 +5874,7 @@ export function RebalanceForm() {
         <AllocationList allocations={allocations} onChange={setAllocations} />
         <PriceList prices={prices} onChange={setPrices} />
         <OptionsForm options={options} onChange={setOptions} />
-        
+
         <button
           onClick={handleSubmit}
           disabled={loading}
@@ -5962,7 +5923,7 @@ export default function Home() {
 
 ```
 
-```markdown
+````markdown
 # Portfolio Rebalance Module
 
 A Next.js portfolio rebalancing module built with SOLID principles, TypeScript, and comprehensive testing.
@@ -5972,6 +5933,7 @@ A Next.js portfolio rebalancing module built with SOLID principles, TypeScript, 
 ```bash
 npm install
 ```
+````
 
 ## Development
 
@@ -5996,6 +5958,7 @@ npm test:watch
 ## API Usage
 
 You can test the API using:
+
 - **Web Form**: Visit `http://localhost:3000` and fill out the interactive form
 - **cURL/API client**: See example below
 
@@ -6059,10 +6022,10 @@ curl -X POST http://localhost:3000/api/rebalance \
       "side": "BUY",
       "shares": 10.666667,
       "price": 180,
-      "notional": 1920.00
+      "notional": 1920.0
     }
   ],
-  "net": 0.00,
+  "net": 0.0,
   "totalValue": 4700
 }
 ```
@@ -6087,12 +6050,14 @@ Minimum order value in dollars. Orders with notional value below this threshold 
 Minimalist design with clear separation of concerns:
 
 ### Backend
+
 - **helpers/**: Pure functions (weights, orders)
 - **services/**: Business logic (plan function)
 - **dto/**: Types and validation schemas
 - **api/**: Next.js route handler
 
 ### Frontend (Tailwind CSS)
+
 - **components/rebalance/**: UI components with single responsibility
   - `PositionList.tsx`: Manages position inputs
   - `AllocationList.tsx`: Manages allocation inputs with validation
@@ -6106,6 +6071,7 @@ Minimalist design with clear separation of concerns:
   - `InfoIcon.tsx`: Information icon for tooltips
 
 ### UX Features
+
 - 📊 Real-time validation of allocation weights (must sum to 1.0)
 - 💡 Contextual tooltips on every section explaining their purpose
 - 🎨 Visual feedback with color-coded states (green/yellow/red)
@@ -6134,7 +6100,7 @@ Perfecto! ✅ He mejorado significativamente la UX/UI. Aquí está todo lo nuevo
 
 ## 🎨 Mejoras Implementadas:
 
-### 1. **Tooltips Contextuales** 
+### 1. **Tooltips Contextuales**
 - ✅ Componente `Tooltip` reutilizable con hover
 - ✅ Icono de información (ℹ️) en cada sección
 - ✅ Explicaciones claras de qué hace cada campo
@@ -6187,18 +6153,20 @@ Perfecto! ✅ He mejorado significativamente la UX/UI. Aquí está todo lo nuevo
 ## 📊 Estructura de Componentes:
 
 ```
+
 src/components/
 ├── ui/
-│   ├── Tooltip.tsx         # Tooltip reutilizable
-│   └── InfoIcon.tsx        # Icono SVG de información
+│ ├── Tooltip.tsx # Tooltip reutilizable
+│ └── InfoIcon.tsx # Icono SVG de información
 └── rebalance/
-    ├── PositionList.tsx    # Con tooltips
-    ├── AllocationList.tsx  # Con validación en tiempo real
-    ├── PriceList.tsx       # Con símbolo $ 
-    ├── OptionsForm.tsx     # Con tooltips en cada opción
-    ├── ResultDisplay.tsx   # Vista mejorada con cards
-    └── RebalanceForm.tsx   # Orquestador principal
-```
+├── PositionList.tsx # Con tooltips
+├── AllocationList.tsx # Con validación en tiempo real
+├── PriceList.tsx # Con símbolo $
+├── OptionsForm.tsx # Con tooltips en cada opción
+├── ResultDisplay.tsx # Vista mejorada con cards
+└── RebalanceForm.tsx # Orquestador principal
+
+````
 
 ## 🚀 Ejemplo de Tooltips:
 
@@ -6219,11 +6187,11 @@ src/components/
 └── rebalance/
     ├── PositionList.tsx    # Con tooltips
     ├── AllocationList.tsx  # Con validación en tiempo real
-    ├── PriceList.tsx       # Con símbolo $ 
+    ├── PriceList.tsx       # Con símbolo $
     ├── OptionsForm.tsx     # Con tooltips en cada opción
     ├── ResultDisplay.tsx   # Vista mejorada con cards
     └── RebalanceForm.tsx   # Orquestador principal
-```
+````
 
 ---
 
@@ -6253,7 +6221,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       ],
       { META: 0.4, AAPL: 0.6 },
       { META: 350, AAPL: 180, NFLX: 600 },
-      { fractional: true, band: 0.001, minNotional: 1 },
+      { fractional: true, band: 0.001, minNotional: 1 }
     );
 
     const currentTotal = 10 * 350 + 5 * 180 + 2 * 600;
@@ -6284,16 +6252,16 @@ describe('[VALIDATION] Manual calculation verification', () => {
     expect(diffAAPL).toBe(1920);
     expect(diffNFLX).toBe(-1200);
 
-    const nflxOrder = result.orders.find(o => o.symbol === 'NFLX');
+    const nflxOrder = result.orders.find((o) => o.symbol === 'NFLX');
     expect(nflxOrder?.side).toBe('SELL');
     expect(nflxOrder?.shares).toBe(2);
     expect(nflxOrder?.notional).toBe(1200);
 
-    const metaOrder = result.orders.find(o => o.symbol === 'META');
+    const metaOrder = result.orders.find((o) => o.symbol === 'META');
     expect(metaOrder?.side).toBe('SELL');
     expect(Math.abs(metaOrder!.shares - 1620 / 350)).toBeLessThan(0.01);
 
-    const aaplOrder = result.orders.find(o => o.symbol === 'AAPL');
+    const aaplOrder = result.orders.find((o) => o.symbol === 'AAPL');
     expect(aaplOrder?.side).toBe('BUY');
     expect(Math.abs(aaplOrder!.shares - 1920 / 180)).toBeLessThan(0.01);
 
@@ -6311,7 +6279,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       ],
       { A: 0.5, B: 0.5 },
       { A: 100, B: 200 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
     const total = 100 * 100;
@@ -6323,8 +6291,8 @@ describe('[VALIDATION] Manual calculation verification', () => {
     expect(targetA).toBe(5000);
     expect(targetB).toBe(5000);
 
-    const orderA = result.orders.find(o => o.symbol === 'A');
-    const orderB = result.orders.find(o => o.symbol === 'B');
+    const orderA = result.orders.find((o) => o.symbol === 'A');
+    const orderB = result.orders.find((o) => o.symbol === 'B');
 
     expect(orderA?.side).toBe('SELL');
     expect(orderA?.shares).toBe(50);
@@ -6345,7 +6313,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       ],
       { A: 0.7, B: 0.3 },
       { A: 100, B: 100 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
     const total = 10 * 100 + 10 * 100;
@@ -6369,8 +6337,8 @@ describe('[VALIDATION] Manual calculation verification', () => {
     expect(diffA).toBe(400);
     expect(diffB).toBe(-400);
 
-    const orderA = result.orders.find(o => o.symbol === 'A');
-    const orderB = result.orders.find(o => o.symbol === 'B');
+    const orderA = result.orders.find((o) => o.symbol === 'A');
+    const orderB = result.orders.find((o) => o.symbol === 'B');
 
     expect(orderA?.side).toBe('BUY');
     expect(orderB?.side).toBe('SELL');
@@ -6389,7 +6357,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       [{ symbol: 'A', shares: 100 }],
       { A: 1.0 },
       { A: 100 },
-      { fractional: true, band: 0.01, minNotional: 0 },
+      { fractional: true, band: 0.01, minNotional: 0 }
     );
 
     expect(result.orders).toHaveLength(0);
@@ -6403,7 +6371,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       ],
       { A: 0.99, B: 0.01 },
       { A: 100, B: 100 },
-      { fractional: true, band: 0.001, minNotional: 0 },
+      { fractional: true, band: 0.001, minNotional: 0 }
     );
 
     const total = 10000;
@@ -6430,7 +6398,6 @@ describe('[VALIDATION] Manual calculation verification', () => {
     expect(result.orders.length).toBeGreaterThan(0);
   });
 });
-
 ```
 
 Encontré un error en mi test de validación. Déjame corregirlo:
@@ -6449,7 +6416,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       ],
       { META: 0.4, AAPL: 0.6 },
       { META: 350, AAPL: 180, NFLX: 600 },
-      { fractional: true, band: 0.001, minNotional: 1 },
+      { fractional: true, band: 0.001, minNotional: 1 }
     );
 
     const currentTotal = 10 * 350 + 5 * 180 + 2 * 600;
@@ -6480,16 +6447,16 @@ describe('[VALIDATION] Manual calculation verification', () => {
     expect(diffAAPL).toBe(2460);
     expect(diffNFLX).toBe(-1200);
 
-    const nflxOrder = result.orders.find(o => o.symbol === 'NFLX');
+    const nflxOrder = result.orders.find((o) => o.symbol === 'NFLX');
     expect(nflxOrder?.side).toBe('SELL');
     expect(nflxOrder?.shares).toBe(2);
     expect(nflxOrder?.notional).toBe(1200);
 
-    const metaOrder = result.orders.find(o => o.symbol === 'META');
+    const metaOrder = result.orders.find((o) => o.symbol === 'META');
     expect(metaOrder?.side).toBe('SELL');
     expect(Math.abs(metaOrder!.shares - 1620 / 350)).toBeLessThan(0.01);
 
-    const aaplOrder = result.orders.find(o => o.symbol === 'AAPL');
+    const aaplOrder = result.orders.find((o) => o.symbol === 'AAPL');
     expect(aaplOrder?.side).toBe('BUY');
     expect(Math.abs(aaplOrder!.shares - 1920 / 180)).toBeLessThan(0.01);
 
@@ -6507,7 +6474,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       ],
       { A: 0.5, B: 0.5 },
       { A: 100, B: 200 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
     const total = 100 * 100;
@@ -6519,8 +6486,8 @@ describe('[VALIDATION] Manual calculation verification', () => {
     expect(targetA).toBe(5000);
     expect(targetB).toBe(5000);
 
-    const orderA = result.orders.find(o => o.symbol === 'A');
-    const orderB = result.orders.find(o => o.symbol === 'B');
+    const orderA = result.orders.find((o) => o.symbol === 'A');
+    const orderB = result.orders.find((o) => o.symbol === 'B');
 
     expect(orderA?.side).toBe('SELL');
     expect(orderA?.shares).toBe(50);
@@ -6541,7 +6508,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       ],
       { A: 0.7, B: 0.3 },
       { A: 100, B: 100 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
     const total = 10 * 100 + 10 * 100;
@@ -6565,8 +6532,8 @@ describe('[VALIDATION] Manual calculation verification', () => {
     expect(diffA).toBe(400);
     expect(diffB).toBe(-400);
 
-    const orderA = result.orders.find(o => o.symbol === 'A');
-    const orderB = result.orders.find(o => o.symbol === 'B');
+    const orderA = result.orders.find((o) => o.symbol === 'A');
+    const orderB = result.orders.find((o) => o.symbol === 'B');
 
     expect(orderA?.side).toBe('BUY');
     expect(orderB?.side).toBe('SELL');
@@ -6585,7 +6552,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       [{ symbol: 'A', shares: 100 }],
       { A: 1.0 },
       { A: 100 },
-      { fractional: true, band: 0.01, minNotional: 0 },
+      { fractional: true, band: 0.01, minNotional: 0 }
     );
 
     expect(result.orders).toHaveLength(0);
@@ -6599,7 +6566,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       ],
       { A: 0.99, B: 0.01 },
       { A: 100, B: 100 },
-      { fractional: true, band: 0.001, minNotional: 0 },
+      { fractional: true, band: 0.001, minNotional: 0 }
     );
 
     const total = 10000;
@@ -6626,8 +6593,6 @@ describe('[VALIDATION] Manual calculation verification', () => {
     expect(result.orders.length).toBeGreaterThan(0);
   });
 });
-
-
 ```
 
 ```typescript
@@ -6644,7 +6609,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       ],
       { META: 0.4, AAPL: 0.6 },
       { META: 350, AAPL: 180, NFLX: 600 },
-      { fractional: true, band: 0.001, minNotional: 1 },
+      { fractional: true, band: 0.001, minNotional: 1 }
     );
 
     const currentTotal = 10 * 350 + 5 * 180 + 2 * 600;
@@ -6675,16 +6640,16 @@ describe('[VALIDATION] Manual calculation verification', () => {
     expect(diffAAPL).toBe(2460);
     expect(diffNFLX).toBe(-1200);
 
-    const nflxOrder = result.orders.find(o => o.symbol === 'NFLX');
+    const nflxOrder = result.orders.find((o) => o.symbol === 'NFLX');
     expect(nflxOrder?.side).toBe('SELL');
     expect(nflxOrder?.shares).toBe(2);
     expect(nflxOrder?.notional).toBe(1200);
 
-    const metaOrder = result.orders.find(o => o.symbol === 'META');
+    const metaOrder = result.orders.find((o) => o.symbol === 'META');
     expect(metaOrder?.side).toBe('SELL');
     expect(Math.abs(metaOrder!.shares - 1260 / 350)).toBeLessThan(0.01);
 
-    const aaplOrder = result.orders.find(o => o.symbol === 'AAPL');
+    const aaplOrder = result.orders.find((o) => o.symbol === 'AAPL');
     expect(aaplOrder?.side).toBe('BUY');
     expect(Math.abs(aaplOrder!.shares - 2460 / 180)).toBeLessThan(0.01);
 
@@ -6702,7 +6667,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       ],
       { A: 0.5, B: 0.5 },
       { A: 100, B: 200 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
     const total = 100 * 100;
@@ -6714,8 +6679,8 @@ describe('[VALIDATION] Manual calculation verification', () => {
     expect(targetA).toBe(5000);
     expect(targetB).toBe(5000);
 
-    const orderA = result.orders.find(o => o.symbol === 'A');
-    const orderB = result.orders.find(o => o.symbol === 'B');
+    const orderA = result.orders.find((o) => o.symbol === 'A');
+    const orderB = result.orders.find((o) => o.symbol === 'B');
 
     expect(orderA?.side).toBe('SELL');
     expect(orderA?.shares).toBe(50);
@@ -6736,7 +6701,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       ],
       { A: 0.7, B: 0.3 },
       { A: 100, B: 100 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
     const total = 10 * 100 + 10 * 100;
@@ -6760,8 +6725,8 @@ describe('[VALIDATION] Manual calculation verification', () => {
     expect(diffA).toBe(400);
     expect(diffB).toBe(-400);
 
-    const orderA = result.orders.find(o => o.symbol === 'A');
-    const orderB = result.orders.find(o => o.symbol === 'B');
+    const orderA = result.orders.find((o) => o.symbol === 'A');
+    const orderB = result.orders.find((o) => o.symbol === 'B');
 
     expect(orderA?.side).toBe('BUY');
     expect(orderB?.side).toBe('SELL');
@@ -6780,7 +6745,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       [{ symbol: 'A', shares: 100 }],
       { A: 1.0 },
       { A: 100 },
-      { fractional: true, band: 0.01, minNotional: 0 },
+      { fractional: true, band: 0.01, minNotional: 0 }
     );
 
     expect(result.orders).toHaveLength(0);
@@ -6794,7 +6759,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       ],
       { A: 0.99, B: 0.01 },
       { A: 100, B: 100 },
-      { fractional: true, band: 0.001, minNotional: 0 },
+      { fractional: true, band: 0.001, minNotional: 0 }
     );
 
     const total = 10000;
@@ -6821,8 +6786,6 @@ describe('[VALIDATION] Manual calculation verification', () => {
     expect(result.orders.length).toBeGreaterThan(0);
   });
 });
-
-
 ```
 
 Ahora voy a crear un test más detallado que muestre el flujo completo del algoritmo:
@@ -6883,9 +6846,15 @@ describe('[ALGORITHM] Step-by-step verification', () => {
     const sharesMeta = diffMeta / 350;
     const sharesAapl = diffAapl / 180;
     const sharesNflx = diffNflx / 600;
-    console.log(`  META: $${diffMeta} ÷ $${350} = ${sharesMeta} shares (${diffMeta < 0 ? 'SELL' : 'BUY'})`);
-    console.log(`  AAPL: $${diffAapl} ÷ $${180} = ${sharesAapl} shares (${diffAapl < 0 ? 'SELL' : 'BUY'})`);
-    console.log(`  NFLX: $${diffNflx} ÷ $${600} = ${sharesNflx} shares (${diffNflx < 0 ? 'SELL' : 'BUY'})`);
+    console.log(
+      `  META: $${diffMeta} ÷ $${350} = ${sharesMeta} shares (${diffMeta < 0 ? 'SELL' : 'BUY'})`
+    );
+    console.log(
+      `  AAPL: $${diffAapl} ÷ $${180} = ${sharesAapl} shares (${diffAapl < 0 ? 'SELL' : 'BUY'})`
+    );
+    console.log(
+      `  NFLX: $${diffNflx} ÷ $${600} = ${sharesNflx} shares (${diffNflx < 0 ? 'SELL' : 'BUY'})`
+    );
     console.log();
 
     const result = plan(positions, allocation, prices, {
@@ -6896,13 +6865,19 @@ describe('[ALGORITHM] Step-by-step verification', () => {
 
     console.log('STEP 5: Generated orders (sorted: SELL first, then BUY)');
     result.orders.forEach((order, idx) => {
-      console.log(`  ${idx + 1}. ${order.side} ${order.shares} ${order.symbol} @ $${order.price} = $${order.notional.toFixed(2)}`);
+      console.log(
+        `  ${idx + 1}. ${order.side} ${order.shares} ${order.symbol} @ $${order.price} = $${order.notional.toFixed(2)}`
+      );
     });
     console.log();
 
     console.log('STEP 6: Calculate net cash flow');
-    const cashIn = result.orders.filter(o => o.side === 'SELL').reduce((sum, o) => sum + o.notional, 0);
-    const cashOut = result.orders.filter(o => o.side === 'BUY').reduce((sum, o) => sum + o.notional, 0);
+    const cashIn = result.orders
+      .filter((o) => o.side === 'SELL')
+      .reduce((sum, o) => sum + o.notional, 0);
+    const cashOut = result.orders
+      .filter((o) => o.side === 'BUY')
+      .reduce((sum, o) => sum + o.notional, 0);
     console.log(`  Cash IN (from SELL): $${cashIn.toFixed(2)}`);
     console.log(`  Cash OUT (from BUY): $${cashOut.toFixed(2)}`);
     console.log(`  Net: $${result.net.toFixed(2)}`);
@@ -6915,19 +6890,19 @@ describe('[ALGORITHM] Step-by-step verification', () => {
     expect(Math.abs(result.net)).toBeLessThanOrEqual(0.01);
     console.log(`  ✓ Net cash balanced: $${result.net.toFixed(2)} (≤ $0.01)`);
 
-    const nflxOrder = result.orders.find(o => o.symbol === 'NFLX');
+    const nflxOrder = result.orders.find((o) => o.symbol === 'NFLX');
     expect(nflxOrder?.side).toBe('SELL');
     expect(nflxOrder?.shares).toBe(2);
     console.log(`  ✓ NFLX fully liquidated (not in allocation): SELL ${nflxOrder?.shares} shares`);
 
-    result.orders.forEach(order => {
+    result.orders.forEach((order) => {
       const expectedNotional = order.shares * order.price;
       expect(Math.abs(order.notional - expectedNotional)).toBeLessThan(0.01);
     });
     console.log(`  ✓ All order notionals calculated correctly`);
 
-    const sellFirst = result.orders.findIndex(o => o.side === 'SELL');
-    const buyFirst = result.orders.findIndex(o => o.side === 'BUY');
+    const sellFirst = result.orders.findIndex((o) => o.side === 'SELL');
+    const buyFirst = result.orders.findIndex((o) => o.side === 'BUY');
     if (sellFirst >= 0 && buyFirst >= 0) {
       expect(sellFirst).toBeLessThan(buyFirst);
       console.log(`  ✓ Orders sorted correctly (SELL before BUY)`);
@@ -6943,7 +6918,7 @@ describe('[ALGORITHM] Step-by-step verification', () => {
       [{ symbol: 'A', shares: 100 }],
       { A: 0.5, B: 0.5 },
       { A: 100, B: 200 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
     console.log('Before adjustment (theoretical):');
@@ -6953,8 +6928,10 @@ describe('[ALGORITHM] Step-by-step verification', () => {
     console.log();
 
     console.log('After adjustment (actual):');
-    result.orders.forEach(order => {
-      console.log(`  ${order.side} ${order.symbol}: ${order.shares} shares × $${order.price} = $${order.notional.toFixed(2)}`);
+    result.orders.forEach((order) => {
+      console.log(
+        `  ${order.side} ${order.symbol}: ${order.shares} shares × $${order.price} = $${order.notional.toFixed(2)}`
+      );
     });
     console.log(`  Actual net: $${result.net.toFixed(2)}`);
     console.log();
@@ -6985,7 +6962,7 @@ describe('[ALGORITHM] Step-by-step verification', () => {
       [{ symbol: 'A', shares: 50.01 }],
       { A: 1.0 },
       { A: 100 },
-      { fractional: true, band: 0.001, minNotional: 0 },
+      { fractional: true, band: 0.001, minNotional: 0 }
     );
 
     console.log(`Orders generated: ${result.orders.length}`);
@@ -6993,7 +6970,6 @@ describe('[ALGORITHM] Step-by-step verification', () => {
     console.log('✓ No order generated (within tolerance)\n');
   });
 });
-
 ```
 
 ---
@@ -7018,7 +6994,7 @@ describe('[EDGE CASES] Symbol handling', () => {
       [{ symbol: 'TSLA', shares: 10 }],
       { AAPL: 1.0 },
       { TSLA: 300, AAPL: 180 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
     console.log('\n=== Symbol only in positions ===');
@@ -7027,8 +7003,8 @@ describe('[EDGE CASES] Symbol handling', () => {
     console.log('Expected: SELL all TSLA, BUY AAPL with proceeds');
     console.log('Orders:', result.orders);
 
-    const tslaOrder = result.orders.find(o => o.symbol === 'TSLA');
-    const aaplOrder = result.orders.find(o => o.symbol === 'AAPL');
+    const tslaOrder = result.orders.find((o) => o.symbol === 'TSLA');
+    const aaplOrder = result.orders.find((o) => o.symbol === 'AAPL');
 
     expect(tslaOrder?.side).toBe('SELL');
     expect(tslaOrder?.shares).toBe(10);
@@ -7041,7 +7017,7 @@ describe('[EDGE CASES] Symbol handling', () => {
       [{ symbol: 'AAPL', shares: 10 }],
       { AAPL: 0.5, META: 0.5 },
       { AAPL: 180, META: 350 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
     console.log('\n=== Symbol only in allocation ===');
@@ -7050,7 +7026,7 @@ describe('[EDGE CASES] Symbol handling', () => {
     console.log('Expected: SELL some AAPL, BUY META');
     console.log('Orders:', result.orders);
 
-    const metaOrder = result.orders.find(o => o.symbol === 'META');
+    const metaOrder = result.orders.find((o) => o.symbol === 'META');
     expect(metaOrder?.side).toBe('BUY');
     expect(metaOrder?.notional).toBeCloseTo(900, 1);
   });
@@ -7060,7 +7036,7 @@ describe('[EDGE CASES] Symbol handling', () => {
       [{ symbol: 'AAPL', shares: 10 }],
       { AAPL: 1.0 },
       { AAPL: 180, TSLA: 300, META: 350 },
-      { fractional: true, band: 0.001, minNotional: 0 },
+      { fractional: true, band: 0.001, minNotional: 0 }
     );
 
     console.log('\n=== Extra symbols in prices ===');
@@ -7076,24 +7052,16 @@ describe('[EDGE CASES] Symbol handling', () => {
   it('should throw error if symbol in positions but price missing', () => {
     console.log('\n=== Missing price for position ===');
 
-    expect(() =>
-      plan(
-        [{ symbol: 'AAPL', shares: 10 }],
-        { AAPL: 1.0 },
-        {},
-      ),
-    ).toThrow('Missing or invalid price');
+    expect(() => plan([{ symbol: 'AAPL', shares: 10 }], { AAPL: 1.0 }, {})).toThrow(
+      'Missing or invalid price'
+    );
   });
 
   it('should throw error if symbol in allocation but price missing', () => {
     console.log('\n=== Missing price for allocation ===');
 
     expect(() =>
-      plan(
-        [{ symbol: 'AAPL', shares: 10 }],
-        { AAPL: 0.5, META: 0.5 },
-        { AAPL: 180 },
-      ),
+      plan([{ symbol: 'AAPL', shares: 10 }], { AAPL: 0.5, META: 0.5 }, { AAPL: 180 })
     ).toThrow('Missing or invalid price');
   });
 
@@ -7102,7 +7070,7 @@ describe('[EDGE CASES] Symbol handling', () => {
       [{ symbol: 'AAPL', shares: 100 }],
       { AAPL: 0.4, META: 0.3, TSLA: 0.3 },
       { AAPL: 100, META: 200, TSLA: 300 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
     console.log('\n=== Multiple new symbols ===');
@@ -7110,9 +7078,9 @@ describe('[EDGE CASES] Symbol handling', () => {
     console.log('Target: 40% AAPL, 30% META, 30% TSLA');
     console.log('Orders:', result.orders);
 
-    const aaplOrder = result.orders.find(o => o.symbol === 'AAPL');
-    const metaOrder = result.orders.find(o => o.symbol === 'META');
-    const tslaOrder = result.orders.find(o => o.symbol === 'TSLA');
+    const aaplOrder = result.orders.find((o) => o.symbol === 'AAPL');
+    const metaOrder = result.orders.find((o) => o.symbol === 'META');
+    const tslaOrder = result.orders.find((o) => o.symbol === 'TSLA');
 
     expect(aaplOrder?.side).toBe('SELL');
     expect(metaOrder?.side).toBe('BUY');
@@ -7127,7 +7095,7 @@ describe('[EDGE CASES] Symbol handling', () => {
       [],
       { AAPL: 1.0 },
       { AAPL: 180 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
     console.log('\n=== Empty positions ===');
@@ -7150,7 +7118,7 @@ describe('[EDGE CASES] Symbol handling', () => {
         { symbol: 'TSLA', shares: 3 },
       ],
       { AAPL: 0.6, GOOGL: 0.4 },
-      { AAPL: 180, META: 350, TSLA: 300, GOOGL: 140 },
+      { AAPL: 180, META: 350, TSLA: 300, GOOGL: 140 }
     );
 
     console.log('Positions: AAPL, META, TSLA');
@@ -7158,9 +7126,9 @@ describe('[EDGE CASES] Symbol handling', () => {
     console.log('Expected: SELL META & TSLA (not in allocation), BUY GOOGL (new)');
     console.log('Orders:', result.orders);
 
-    const metaOrder = result.orders.find(o => o.symbol === 'META');
-    const tslaOrder = result.orders.find(o => o.symbol === 'TSLA');
-    const googlOrder = result.orders.find(o => o.symbol === 'GOOGL');
+    const metaOrder = result.orders.find((o) => o.symbol === 'META');
+    const tslaOrder = result.orders.find((o) => o.symbol === 'TSLA');
+    const googlOrder = result.orders.find((o) => o.symbol === 'GOOGL');
 
     expect(metaOrder?.side).toBe('SELL');
     expect(metaOrder?.shares).toBe(5);
@@ -7171,7 +7139,6 @@ describe('[EDGE CASES] Symbol handling', () => {
     expect(googlOrder?.side).toBe('BUY');
   });
 });
-
 ```
 
 Perfecto! ✅ **Todos los casos de símbolos están correctamente manejados**. Aquí está el resumen completo:
@@ -7179,37 +7146,42 @@ Perfecto! ✅ **Todos los casos de símbolos están correctamente manejados**. A
 ## 📊 Manejo de Símbolos - Casos Válidos
 
 ### ✅ **1. Símbolo SOLO en Positions (no en Allocation)**
+
 ```
 Ejemplo: Tienes TSLA, pero no está en tu allocation objetivo
 Resultado: ✓ SE VENDE TODO (liquidación completa)
 ```
 
 ### ✅ **2. Símbolo SOLO en Allocation (no en Positions)**
+
 ```
 Ejemplo: Quieres 50% META pero no lo tienes
 Resultado: ✓ SE COMPRA con el dinero del rebalanceo
 ```
 
 ### ✅ **3. Símbolo SOLO en Prices (extra)**
+
 ```
 Ejemplo: Tienes precios de TSLA, META, GOOGL pero solo usas AAPL
 Resultado: ✓ SE IGNORA (no afecta el cálculo)
 ```
 
 ### ✅ **4. Múltiples Símbolos Nuevos**
+
 ```
 Ejemplo: Solo tienes AAPL, quieres diversificar a 40% AAPL + 30% META + 30% TSLA
 Resultado: ✓ VENDE AAPL parcial, COMPRA META y TSLA
 ```
 
 ### ✅ **5. Portfolio Complejo**
+
 ```
-Ejemplo: 
+Ejemplo:
   Positions: AAPL, META, TSLA
   Target: 60% AAPL, 40% GOOGL
-Resultado: 
+Resultado:
   ✓ VENDE META (no en target)
-  ✓ VENDE TSLA (no en target)  
+  ✓ VENDE TSLA (no en target)
   ✓ COMPRA GOOGL (nuevo)
   ✓ Ajusta AAPL al 60%
 ```
@@ -7217,13 +7189,16 @@ Resultado:
 ## ⚠️ Casos NO Permitidos (Errores)
 
 ### ❌ **Falta precio para un símbolo en positions**
+
 ```javascript
-positions: [{ symbol: 'AAPL', shares: 10 }]
-prices: {} // ← Error!
+positions: [{ symbol: 'AAPL', shares: 10 }];
+prices: {
+} // ← Error!
 // Lanza: "Missing or invalid price for AAPL"
 ```
 
 ### ❌ **Falta precio para un símbolo en allocation**
+
 ```javascript
 allocation: { AAPL: 0.5, META: 0.5 }
 prices: { AAPL: 180 } // ← Falta META!
@@ -7231,6 +7206,7 @@ prices: { AAPL: 180 } // ← Falta META!
 ```
 
 ### ❌ **Allocation no suma 1.0**
+
 ```javascript
 allocation: { AAPL: 0.4, META: 0.5 } // ← Suma 0.9
 // Lanza: "Allocation weights must sum to 1"
@@ -7268,6 +7244,7 @@ Prices:
 ```
 
 **Resultado:**
+
 - ✅ SELL NFLX completo (no en target)
 - ✅ SELL parte de META (sobreponderado)
 - ✅ BUY más AAPL (subponderado)
@@ -7296,19 +7273,20 @@ Resultado: ✓ VENDE AAPL parcial, COMPRA META y TSLA
 ```
 
 ```plaintext
-Ejemplo: 
+Ejemplo:
   Positions: AAPL, META, TSLA
   Target: 60% AAPL, 40% GOOGL
-Resultado: 
+Resultado:
   ✓ VENDE META (no en target)
-  ✓ VENDE TSLA (no en target)  
+  ✓ VENDE TSLA (no en target)
   ✓ COMPRA GOOGL (nuevo)
   ✓ Ajusta AAPL al 60%
 ```
 
 ```javascript
-positions: [{ symbol: 'AAPL', shares: 10 }]
-prices: {} // ← Error!
+positions: [{ symbol: 'AAPL', shares: 10 }];
+prices: {
+} // ← Error!
 // Lanza: "Missing or invalid price for AAPL"
 ```
 
@@ -7362,8 +7340,6 @@ const nextConfig = {
 };
 
 export default nextConfig;
-
-
 ```
 
 ```editorconfig
@@ -7416,7 +7392,6 @@ trim_trailing_whitespace = false
     "vitest": "^2.1.4"
   }
 }
-
 ```
 
 ```jsonc
@@ -7424,13 +7399,12 @@ trim_trailing_whitespace = false
   "extends": ["next/core-web-vitals", "next/typescript"],
   "rules": {
     "@typescript-eslint/no-explicit-any": "warn",
-    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
-  }
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+  },
 }
-
 ```
 
-```markdown
+````markdown
 # Project Checklist
 
 ## ✅ Core Functionality
@@ -7441,7 +7415,6 @@ trim_trailing_whitespace = false
   - [x] DTOs with TypeScript types
   - [x] Zod validation schemas
   - [x] API route handler POST /api/rebalance
-  
 - [x] **Algorithm**
   - [x] Calculate target allocation based on weights
   - [x] Generate buy/sell orders
@@ -7472,7 +7445,6 @@ trim_trailing_whitespace = false
   - [x] Edge case tests (symbol handling)
   - [x] Calculation verification tests
   - [x] E2E API tests
-  
 - [x] **Code Quality**
   - [x] TypeScript strict mode
   - [x] ESLint configuration
@@ -7558,6 +7530,7 @@ trim_trailing_whitespace = false
 ✓ npm run build         # Build: Success
 ✓ npm run validate      # All checks: OK
 ```
+````
 
 ## ✨ Bonus Features
 
@@ -7572,7 +7545,7 @@ trim_trailing_whitespace = false
 
 **Status**: ✅ **PROJECT COMPLETE & PRODUCTION READY**
 
-```
+````
 
 ```markdown
 # Portfolio Rebalance Module
@@ -7583,7 +7556,7 @@ A Next.js portfolio rebalancing module built with SOLID principles, TypeScript, 
 
 ```bash
 npm install
-```
+````
 
 ## Development
 
@@ -7608,6 +7581,7 @@ npm test:watch
 ## API Usage
 
 You can test the API using:
+
 - **Web Form**: Visit `http://localhost:3000` and fill out the interactive form
 - **cURL/API client**: See example below
 
@@ -7671,10 +7645,10 @@ curl -X POST http://localhost:3000/api/rebalance \
       "side": "BUY",
       "shares": 10.666667,
       "price": 180,
-      "notional": 1920.00
+      "notional": 1920.0
     }
   ],
-  "net": 0.00,
+  "net": 0.0,
   "totalValue": 4700
 }
 ```
@@ -7699,12 +7673,14 @@ Minimum order value in dollars. Orders with notional value below this threshold 
 Minimalist design with clear separation of concerns:
 
 ### Backend
+
 - **helpers/**: Pure functions (weights, orders)
 - **services/**: Business logic (plan function)
 - **dto/**: Types and validation schemas
 - **api/**: Next.js route handler
 
 ### Frontend (Tailwind CSS)
+
 - **components/rebalance/**: UI components with single responsibility
   - `PositionList.tsx`: Manages position inputs
   - `AllocationList.tsx`: Manages allocation inputs with validation
@@ -7718,6 +7694,7 @@ Minimalist design with clear separation of concerns:
   - `InfoIcon.tsx`: Information icon for tooltips
 
 ### UX Features
+
 - 📊 Real-time validation of allocation weights (must sum to 1.0)
 - 💡 Contextual tooltips on every section explaining their purpose
 - 🎨 Visual feedback with color-coded states (green/yellow/red)
@@ -7751,7 +7728,7 @@ npm start
 - `npm run type-check` - TypeScript type checking
 - `npm run validate` - Run type-check + tests
 
-```
+````
 
 Perfecto! ✅ **El proyecto está 100% completo y listo para producción**. Aquí está el resumen final:
 
@@ -7804,7 +7781,7 @@ Perfecto! ✅ **El proyecto está 100% completo y listo para producción**. Aqu�
 ✓ npm run test         # 39/39 tests passing
 ✓ npm run build        # Build exitoso (106 kB)
 ✓ npm run validate     # Todo OK
-```
+````
 
 ## 🎯 **Verificación de Cálculos**
 
@@ -7854,4 +7831,3 @@ npm run dev          # → http://localhost:3000
 npm test            # → 39 tests passing
 npm run validate    # → All checks OK
 ```
-
