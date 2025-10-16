@@ -1,3 +1,5 @@
+import type { Order } from "@/lib/portfolio/dto/types";
+
 interface Props {
   result: string;
   loading: boolean;
@@ -79,13 +81,13 @@ export function ResultDisplay({ result, loading }: Props) {
                 </h3>
               </div>
               <div className="divide-y divide-gray-200">
-                {parsedResult.orders.map((order: any, idx: number) => (
+                {parsedResult.orders.map((order: Order, idx: number) => (
                   <div key={idx} className="px-4 py-3 hover:bg-gray-50 transition">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <span className={`px-2.5 py-1 text-xs font-semibold rounded ${
-                          order.side === 'BUY' 
-                            ? 'bg-green-100 text-green-800' 
+                          order.side === 'BUY'
+                            ? 'bg-green-100 text-green-800'
                             : 'bg-red-100 text-red-800'
                         }`}>
                           {order.side}
