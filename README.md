@@ -9,8 +9,9 @@ npm install
 npm run dev
 ```
 
-Visit `http://localhost:3000` for the interactive UI or use the API at `/api/rebalance`.
-Also, you can visit the homepage at <https://fintual-portfolio.vercel.app/>
+If you are running the development server, you can use the API at `http://localhost:3000/`for the interactive UI or use the API at `http://localhost:3000/api/rebalance`.
+
+Also, you can visit the homepage at <https://fintual-portfolio.vercel.app/>.
 
 ## What It Does
 
@@ -20,6 +21,7 @@ Given current positions, target allocations, and prices, it calculates the minim
 
 - You have: 10 META, 5 AAPL, 2 NFLX
 - You want: 40% META, 60% AAPL
+- Prices: META $350, AAPL $180, NFLX $600
 - Result: Sell 2 NFLX, buy 10.67 AAPL
 
 ## Tech Decisions
@@ -62,6 +64,8 @@ src/
 
 **POST** `/api/rebalance`
 
+### Request
+
 ```json
 {
   "positions": [{ "symbol": "AAPL", "shares": 10 }],
@@ -76,6 +80,24 @@ src/
 - `fractional`: Allow fractional shares (default: `true`)
 - `band`: Rebalance tolerance threshold (default: `0.001`)
 - `minNotional`: Minimum order value (default: `0`)
+
+### Response
+
+```json
+{
+  "orders": [
+    {
+      "symbol": "AAPL",
+      "side": "BUY",
+      "shares": 2.0,
+      "price": 180,
+      "notional": 360.0
+    }
+  ],
+  "net": 0.0,
+  "totalValue": 2400.0
+}
+```
 
 ## Scripts
 
