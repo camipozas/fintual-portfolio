@@ -10,12 +10,6 @@ describe('[EDGE CASES] Symbol handling', () => {
       { fractional: true, band: 0, minNotional: 0 },
     );
 
-    console.log('\n=== Symbol only in positions ===');
-    console.log('Positions: TSLA 10 shares');
-    console.log('Allocation: AAPL 100%');
-    console.log('Expected: SELL all TSLA, BUY AAPL with proceeds');
-    console.log('Orders:', result.orders);
-
     const tslaOrder = result.orders.find(o => o.symbol === 'TSLA');
     const aaplOrder = result.orders.find(o => o.symbol === 'AAPL');
 
@@ -33,12 +27,6 @@ describe('[EDGE CASES] Symbol handling', () => {
       { fractional: true, band: 0, minNotional: 0 },
     );
 
-    console.log('\n=== Symbol only in allocation ===');
-    console.log('Positions: AAPL 10 shares ($1800)');
-    console.log('Allocation: 50% AAPL, 50% META');
-    console.log('Expected: SELL some AAPL, BUY META');
-    console.log('Orders:', result.orders);
-
     const metaOrder = result.orders.find(o => o.symbol === 'META');
     expect(metaOrder?.side).toBe('BUY');
     expect(metaOrder?.notional).toBeCloseTo(900, 1);
@@ -52,19 +40,10 @@ describe('[EDGE CASES] Symbol handling', () => {
       { fractional: true, band: 0.001, minNotional: 0 },
     );
 
-    console.log('\n=== Extra symbols in prices ===');
-    console.log('Positions: AAPL only');
-    console.log('Allocation: AAPL 100%');
-    console.log('Prices: AAPL, TSLA, META');
-    console.log('Expected: No orders (already balanced), extra prices ignored');
-    console.log('Orders:', result.orders);
-
     expect(result.orders).toHaveLength(0);
   });
 
   it('should throw error if symbol in positions but price missing', () => {
-    console.log('\n=== Missing price for position ===');
-
     expect(() =>
       plan(
         [{ symbol: 'AAPL', shares: 10 }],
@@ -75,8 +54,6 @@ describe('[EDGE CASES] Symbol handling', () => {
   });
 
   it('should throw error if symbol in allocation but price missing', () => {
-    console.log('\n=== Missing price for allocation ===');
-
     expect(() =>
       plan(
         [{ symbol: 'AAPL', shares: 10 }],
@@ -93,11 +70,6 @@ describe('[EDGE CASES] Symbol handling', () => {
       { AAPL: 100, META: 200, TSLA: 300 },
       { fractional: true, band: 0, minNotional: 0 },
     );
-
-    console.log('\n=== Multiple new symbols ===');
-    console.log('Starting with AAPL only ($10,000)');
-    console.log('Target: 40% AAPL, 30% META, 30% TSLA');
-    console.log('Orders:', result.orders);
 
     const aaplOrder = result.orders.find(o => o.symbol === 'AAPL');
     const metaOrder = result.orders.find(o => o.symbol === 'META');
@@ -119,19 +91,11 @@ describe('[EDGE CASES] Symbol handling', () => {
       { fractional: true, band: 0, minNotional: 0 },
     );
 
-    console.log('\n=== Empty positions ===');
-    console.log('Starting with no positions');
-    console.log('Target: 100% AAPL');
-    console.log('Orders:', result.orders);
-    console.log('Total value:', result.totalValue);
-
     expect(result.totalValue).toBe(0);
     expect(result.orders).toHaveLength(0);
   });
 
   it('should validate symbol consistency across positions and allocation', () => {
-    console.log('\n=== Symbol validation test ===');
-
     const result = plan(
       [
         { symbol: 'AAPL', shares: 10 },
@@ -141,11 +105,6 @@ describe('[EDGE CASES] Symbol handling', () => {
       { AAPL: 0.6, GOOGL: 0.4 },
       { AAPL: 180, META: 350, TSLA: 300, GOOGL: 140 },
     );
-
-    console.log('Positions: AAPL, META, TSLA');
-    console.log('Allocation: AAPL (60%), GOOGL (40%)');
-    console.log('Expected: SELL META & TSLA (not in allocation), BUY GOOGL (new)');
-    console.log('Orders:', result.orders);
 
     const metaOrder = result.orders.find(o => o.symbol === 'META');
     const tslaOrder = result.orders.find(o => o.symbol === 'TSLA');

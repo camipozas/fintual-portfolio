@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { POST } from '@/app/api/rebalance/route.js';
 import { NextRequest } from 'next/server';
+import type { Order } from '@/lib/portfolio/dto/types';
 
 describe('POST /api/rebalance', () => {
   it('should return a valid rebalance plan', async () => {
@@ -28,8 +29,8 @@ describe('POST /api/rebalance', () => {
     expect(data).toHaveProperty('totalValue');
     expect(Array.isArray(data.orders)).toBe(true);
     expect(Math.abs(data.net)).toBeLessThanOrEqual(0.01);
-    
-    const nflxOrder = data.orders.find((o: any) => o.symbol === 'NFLX');
+
+    const nflxOrder = data.orders.find((o: Order) => o.symbol === 'NFLX');
     expect(nflxOrder?.side).toBe('SELL');
     expect(nflxOrder?.shares).toBe(2);
   });
