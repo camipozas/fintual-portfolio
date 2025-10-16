@@ -1,6 +1,6 @@
-import type { Position, Prices, Weights, PlanOptions, PlanResult } from '../dto/types.js';
-import { assertUnit } from '../helpers/weights.js';
-import { buildRebalanceOrders, adjustNetToZero } from '../helpers/orders.js';
+import type { Position, Prices, Weights, PlanOptions, PlanResult } from '../dto/types';
+import { assertUnit } from '../helpers/weights';
+import { buildRebalanceOrders, adjustNetToZero } from '../helpers/orders';
 
 /**
  * Collects the symbols from the positions and allocation

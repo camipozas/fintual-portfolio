@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { rebalanceRequestSchema } from '@/lib/portfolio/dto/schemas.js';
-import { plan } from '@/lib/portfolio/services/RebalanceService.js';
+import { rebalanceRequestSchema } from '@/lib/portfolio/dto/schemas';
+import { plan } from '@/lib/portfolio/services/RebalanceService';
 
 /**
  * Handles the POST request to the /api/rebalance endpoint
