@@ -19,10 +19,10 @@ Given current positions, target allocations, and prices, it calculates the minim
 
 **Example:**
 
-- You have: 10 META, 5 AAPL, 2 NFLX
-- You want: 40% META, 60% AAPL
-- Prices: META $350, AAPL $180, NFLX $600
-- Result: Sell 2 NFLX, buy 10.67 AAPL
+- You have: 100 shares of A @ $100, 0 shares of B @ $200
+- You want: 50% A, 50% B
+- Portfolio value: $10,000
+- Result: Sell 50 A ($5,000), Buy 25 B ($5,000)
 
 ## Tech Decisions
 
