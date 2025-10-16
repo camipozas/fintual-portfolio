@@ -87,3 +87,7 @@ npm run lint         # Lint code
 npm run format:check # Check formatting
 npm run validate     # Type check + tests
 ```
+
+## LLM Conversation
+
+You can find the LLM conversation [here](./LLM_CONVERSATION.md)
