@@ -11,7 +11,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       ],
       { META: 0.4, AAPL: 0.6 },
       { META: 350, AAPL: 180, NFLX: 600 },
-      { fractional: true, band: 0.001, minNotional: 1 },
+      { fractional: true, band: 0.001, minNotional: 1 }
     );
 
     const currentTotal = 10 * 350 + 5 * 180 + 2 * 600;
@@ -42,16 +42,16 @@ describe('[VALIDATION] Manual calculation verification', () => {
     expect(diffAAPL).toBe(2460);
     expect(diffNFLX).toBe(-1200);
 
-    const nflxOrder = result.orders.find(o => o.symbol === 'NFLX');
+    const nflxOrder = result.orders.find((o) => o.symbol === 'NFLX');
     expect(nflxOrder?.side).toBe('SELL');
     expect(nflxOrder?.shares).toBe(2);
     expect(nflxOrder?.notional).toBe(1200);
 
-    const metaOrder = result.orders.find(o => o.symbol === 'META');
+    const metaOrder = result.orders.find((o) => o.symbol === 'META');
     expect(metaOrder?.side).toBe('SELL');
     expect(Math.abs(metaOrder!.shares - 1260 / 350)).toBeLessThan(0.01);
 
-    const aaplOrder = result.orders.find(o => o.symbol === 'AAPL');
+    const aaplOrder = result.orders.find((o) => o.symbol === 'AAPL');
     expect(aaplOrder?.side).toBe('BUY');
     expect(Math.abs(aaplOrder!.shares - 2460 / 180)).toBeLessThan(0.01);
 
@@ -69,7 +69,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       ],
       { A: 0.5, B: 0.5 },
       { A: 100, B: 200 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
     const total = 100 * 100;
@@ -81,8 +81,8 @@ describe('[VALIDATION] Manual calculation verification', () => {
     expect(targetA).toBe(5000);
     expect(targetB).toBe(5000);
 
-    const orderA = result.orders.find(o => o.symbol === 'A');
-    const orderB = result.orders.find(o => o.symbol === 'B');
+    const orderA = result.orders.find((o) => o.symbol === 'A');
+    const orderB = result.orders.find((o) => o.symbol === 'B');
 
     expect(orderA?.side).toBe('SELL');
     expect(orderA?.shares).toBe(50);
@@ -103,7 +103,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       ],
       { A: 0.7, B: 0.3 },
       { A: 100, B: 100 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
     const total = 10 * 100 + 10 * 100;
@@ -127,8 +127,8 @@ describe('[VALIDATION] Manual calculation verification', () => {
     expect(diffA).toBe(400);
     expect(diffB).toBe(-400);
 
-    const orderA = result.orders.find(o => o.symbol === 'A');
-    const orderB = result.orders.find(o => o.symbol === 'B');
+    const orderA = result.orders.find((o) => o.symbol === 'A');
+    const orderB = result.orders.find((o) => o.symbol === 'B');
 
     expect(orderA?.side).toBe('BUY');
     expect(orderB?.side).toBe('SELL');
@@ -147,7 +147,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       [{ symbol: 'A', shares: 100 }],
       { A: 1.0 },
       { A: 100 },
-      { fractional: true, band: 0.01, minNotional: 0 },
+      { fractional: true, band: 0.01, minNotional: 0 }
     );
 
     expect(result.orders).toHaveLength(0);
@@ -161,7 +161,7 @@ describe('[VALIDATION] Manual calculation verification', () => {
       ],
       { A: 0.99, B: 0.01 },
       { A: 100, B: 100 },
-      { fractional: true, band: 0.001, minNotional: 0 },
+      { fractional: true, band: 0.001, minNotional: 0 }
     );
 
     const total = 10000;
@@ -188,4 +188,3 @@ describe('[VALIDATION] Manual calculation verification', () => {
     expect(result.orders.length).toBeGreaterThan(0);
   });
 });
-

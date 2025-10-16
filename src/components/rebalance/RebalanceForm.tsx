@@ -46,17 +46,15 @@ export function RebalanceForm() {
     try {
       const requestBody = {
         positions: positions
-          .filter(p => p.symbol && p.shares)
-          .map(p => ({ symbol: p.symbol, shares: parseFloat(p.shares) })),
+          .filter((p) => p.symbol && p.shares)
+          .map((p) => ({ symbol: p.symbol, shares: parseFloat(p.shares) })),
         allocation: Object.fromEntries(
           allocations
-            .filter(a => a.symbol && a.weight)
-            .map(a => [a.symbol, parseFloat(a.weight)])
+            .filter((a) => a.symbol && a.weight)
+            .map((a) => [a.symbol, parseFloat(a.weight)])
         ),
         prices: Object.fromEntries(
-          prices
-            .filter(p => p.symbol && p.price)
-            .map(p => [p.symbol, parseFloat(p.price)])
+          prices.filter((p) => p.symbol && p.price).map((p) => [p.symbol, parseFloat(p.price)])
         ),
         options: {
           fractional: options.fractional,
@@ -87,7 +85,7 @@ export function RebalanceForm() {
         <AllocationList allocations={allocations} onChange={setAllocations} />
         <PriceList prices={prices} onChange={setPrices} />
         <OptionsForm options={options} onChange={setOptions} />
-        
+
         <button
           onClick={handleSubmit}
           disabled={loading}

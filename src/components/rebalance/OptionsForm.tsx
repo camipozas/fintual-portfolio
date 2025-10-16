@@ -31,12 +31,10 @@ export function OptionsForm({ options, onChange }: Props) {
                 <InfoIcon />
               </Tooltip>
             </div>
-            <p className="text-xs text-gray-500 mt-0.5">
-              Precision: 6 decimals
-            </p>
+            <p className="text-xs text-gray-500 mt-0.5">Precision: 6 decimals</p>
           </div>
         </label>
-        
+
         <div className="flex flex-col gap-2 p-3 border border-gray-200 rounded-md">
           <div className="flex items-center gap-1">
             <label className="text-sm font-medium text-gray-700">Band (Tolerance)</label>
@@ -54,7 +52,7 @@ export function OptionsForm({ options, onChange }: Props) {
           />
           <p className="text-xs text-gray-500">Default: 0.001</p>
         </div>
-        
+
         <div className="flex flex-col gap-2 p-3 border border-gray-200 rounded-md">
           <div className="flex items-center gap-1">
             <label className="text-sm font-medium text-gray-700">Min. Notional</label>
@@ -63,7 +61,9 @@ export function OptionsForm({ options, onChange }: Props) {
             </Tooltip>
           </div>
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">$</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">
+              $
+            </span>
             <input
               type="number"
               min="0"

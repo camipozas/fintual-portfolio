@@ -31,4 +31,3 @@ export const rebalanceResponseSchema = z.object({
   net: z.number(),
   totalValue: z.number(),
 });
-

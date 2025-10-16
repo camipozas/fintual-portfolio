@@ -7,11 +7,11 @@ describe('[EDGE CASES] Symbol handling', () => {
       [{ symbol: 'TSLA', shares: 10 }],
       { AAPL: 1.0 },
       { TSLA: 300, AAPL: 180 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
-    const tslaOrder = result.orders.find(o => o.symbol === 'TSLA');
-    const aaplOrder = result.orders.find(o => o.symbol === 'AAPL');
+    const tslaOrder = result.orders.find((o) => o.symbol === 'TSLA');
+    const aaplOrder = result.orders.find((o) => o.symbol === 'AAPL');
 
     expect(tslaOrder?.side).toBe('SELL');
     expect(tslaOrder?.shares).toBe(10);
@@ -24,10 +24,10 @@ describe('[EDGE CASES] Symbol handling', () => {
       [{ symbol: 'AAPL', shares: 10 }],
       { AAPL: 0.5, META: 0.5 },
       { AAPL: 180, META: 350 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
-    const metaOrder = result.orders.find(o => o.symbol === 'META');
+    const metaOrder = result.orders.find((o) => o.symbol === 'META');
     expect(metaOrder?.side).toBe('BUY');
     expect(metaOrder?.notional).toBeCloseTo(900, 1);
   });
@@ -37,29 +37,21 @@ describe('[EDGE CASES] Symbol handling', () => {
       [{ symbol: 'AAPL', shares: 10 }],
       { AAPL: 1.0 },
       { AAPL: 180, TSLA: 300, META: 350 },
-      { fractional: true, band: 0.001, minNotional: 0 },
+      { fractional: true, band: 0.001, minNotional: 0 }
     );
 
     expect(result.orders).toHaveLength(0);
   });
 
   it('should throw error if symbol in positions but price missing', () => {
-    expect(() =>
-      plan(
-        [{ symbol: 'AAPL', shares: 10 }],
-        { AAPL: 1.0 },
-        {},
-      ),
-    ).toThrow('Missing or invalid price');
+    expect(() => plan([{ symbol: 'AAPL', shares: 10 }], { AAPL: 1.0 }, {})).toThrow(
+      'Missing or invalid price'
+    );
   });
 
   it('should throw error if symbol in allocation but price missing', () => {
     expect(() =>
-      plan(
-        [{ symbol: 'AAPL', shares: 10 }],
-        { AAPL: 0.5, META: 0.5 },
-        { AAPL: 180 },
-      ),
+      plan([{ symbol: 'AAPL', shares: 10 }], { AAPL: 0.5, META: 0.5 }, { AAPL: 180 })
     ).toThrow('Missing or invalid price');
   });
 
@@ -68,12 +60,12 @@ describe('[EDGE CASES] Symbol handling', () => {
       [{ symbol: 'AAPL', shares: 100 }],
       { AAPL: 0.4, META: 0.3, TSLA: 0.3 },
       { AAPL: 100, META: 200, TSLA: 300 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
-    const aaplOrder = result.orders.find(o => o.symbol === 'AAPL');
-    const metaOrder = result.orders.find(o => o.symbol === 'META');
-    const tslaOrder = result.orders.find(o => o.symbol === 'TSLA');
+    const aaplOrder = result.orders.find((o) => o.symbol === 'AAPL');
+    const metaOrder = result.orders.find((o) => o.symbol === 'META');
+    const tslaOrder = result.orders.find((o) => o.symbol === 'TSLA');
 
     expect(aaplOrder?.side).toBe('SELL');
     expect(metaOrder?.side).toBe('BUY');
@@ -88,7 +80,7 @@ describe('[EDGE CASES] Symbol handling', () => {
       [],
       { AAPL: 1.0 },
       { AAPL: 180 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
     expect(result.totalValue).toBe(0);
@@ -103,12 +95,12 @@ describe('[EDGE CASES] Symbol handling', () => {
         { symbol: 'TSLA', shares: 3 },
       ],
       { AAPL: 0.6, GOOGL: 0.4 },
-      { AAPL: 180, META: 350, TSLA: 300, GOOGL: 140 },
+      { AAPL: 180, META: 350, TSLA: 300, GOOGL: 140 }
     );
 
-    const metaOrder = result.orders.find(o => o.symbol === 'META');
-    const tslaOrder = result.orders.find(o => o.symbol === 'TSLA');
-    const googlOrder = result.orders.find(o => o.symbol === 'GOOGL');
+    const metaOrder = result.orders.find((o) => o.symbol === 'META');
+    const tslaOrder = result.orders.find((o) => o.symbol === 'TSLA');
+    const googlOrder = result.orders.find((o) => o.symbol === 'GOOGL');
 
     expect(metaOrder?.side).toBe('SELL');
     expect(metaOrder?.shares).toBe(5);
@@ -119,4 +111,3 @@ describe('[EDGE CASES] Symbol handling', () => {
     expect(googlOrder?.side).toBe('BUY');
   });
 });
-

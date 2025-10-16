@@ -18,4 +18,3 @@ export interface RebalanceOptions {
   band: string;
   minNotional: string;
 }
-

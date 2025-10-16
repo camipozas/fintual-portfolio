@@ -10,8 +10,8 @@ import { buildRebalanceOrders, adjustNetToZero } from '../helpers/orders';
  */
 function collectSymbols(positions: Position[], allocation: Weights): string[] {
   const symbolSet = new Set<string>();
-  positions.forEach(p => symbolSet.add(p.symbol));
-  Object.keys(allocation).forEach(s => symbolSet.add(s));
+  positions.forEach((p) => symbolSet.add(p.symbol));
+  Object.keys(allocation).forEach((s) => symbolSet.add(s));
   return Array.from(symbolSet);
 }
 
@@ -55,7 +55,7 @@ export function plan(
   positions: Position[],
   allocation: Weights,
   prices: Prices,
-  options?: PlanOptions,
+  options?: PlanOptions
 ): PlanResult {
   const fractional = options?.fractional ?? true;
   const band = options?.band ?? 0.001;
@@ -64,7 +64,7 @@ export function plan(
   assertUnit(allocation);
 
   const allSymbols = collectSymbols(positions, allocation);
-  const positionsBySymbol = new Map(positions.map(p => [p.symbol, p]));
+  const positionsBySymbol = new Map(positions.map((p) => [p.symbol, p]));
   const total = calculateTotal(positions, prices);
 
   const orders = buildRebalanceOrders({
@@ -86,4 +86,3 @@ export function plan(
     totalValue: total,
   };
 }
-

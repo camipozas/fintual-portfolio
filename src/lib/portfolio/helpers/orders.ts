@@ -82,8 +82,8 @@ export function adjustNetToZero(orders: Order[], fractional: boolean): void {
   if (Math.abs(net) < 0.01) return;
 
   const targetSide = net > 0 ? 'BUY' : 'SELL';
-  const pivot = orders.find(o => o.side === targetSide);
-  
+  const pivot = orders.find((o) => o.side === targetSide);
+
   if (!pivot) return;
 
   const adjustment = Math.abs(net) / pivot.price;

@@ -83,16 +83,16 @@ export function AllocationList({ allocations, onChange }: Props) {
         )}
       </div>
       {allocations.length > 0 && (
-        <div className={`flex items-center justify-between px-4 py-2 rounded-md text-sm ${
-          isValidTotal 
-            ? 'bg-green-50 text-green-800 border border-green-200' 
-            : 'bg-yellow-50 text-yellow-800 border border-yellow-200'
-        }`}>
+        <div
+          className={`flex items-center justify-between px-4 py-2 rounded-md text-sm ${
+            isValidTotal
+              ? 'bg-green-50 text-green-800 border border-green-200'
+              : 'bg-yellow-50 text-yellow-800 border border-yellow-200'
+          }`}
+        >
           <span className="font-medium">Total Weight:</span>
           <span className="font-semibold">{totalWeight.toFixed(3)}</span>
-          {!isValidTotal && (
-            <span className="text-xs">⚠ Must equal 1.0</span>
-          )}
+          {!isValidTotal && <span className="text-xs">⚠ Must equal 1.0</span>}
         </div>
       )}
     </section>

@@ -19,4 +19,3 @@ export function assertUnit(weights: Record<string, number>): void {
     throw new Error(`Allocation weights must sum to 1, got ${sum}`);
   }
 }
-

@@ -33,4 +33,3 @@ describe('[HELPERS] Weights', () => {
     });
   });
 });
-

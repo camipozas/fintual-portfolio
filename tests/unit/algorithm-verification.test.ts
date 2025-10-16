@@ -26,17 +26,17 @@ describe('[ALGORITHM] Step-by-step verification', () => {
     expect(result.totalValue).toBe(totalValue);
     expect(Math.abs(result.net)).toBeLessThanOrEqual(0.01);
 
-    const nflxOrder = result.orders.find(o => o.symbol === 'NFLX');
+    const nflxOrder = result.orders.find((o) => o.symbol === 'NFLX');
     expect(nflxOrder?.side).toBe('SELL');
     expect(nflxOrder?.shares).toBe(2);
 
-    result.orders.forEach(order => {
+    result.orders.forEach((order) => {
       const expectedNotional = order.shares * order.price;
       expect(Math.abs(order.notional - expectedNotional)).toBeLessThan(0.01);
     });
 
-    const sellFirst = result.orders.findIndex(o => o.side === 'SELL');
-    const buyFirst = result.orders.findIndex(o => o.side === 'BUY');
+    const sellFirst = result.orders.findIndex((o) => o.side === 'SELL');
+    const buyFirst = result.orders.findIndex((o) => o.side === 'BUY');
     if (sellFirst >= 0 && buyFirst >= 0) {
       expect(sellFirst).toBeLessThan(buyFirst);
     }
@@ -47,7 +47,7 @@ describe('[ALGORITHM] Step-by-step verification', () => {
       [{ symbol: 'A', shares: 100 }],
       { A: 0.5, B: 0.5 },
       { A: 100, B: 200 },
-      { fractional: true, band: 0, minNotional: 0 },
+      { fractional: true, band: 0, minNotional: 0 }
     );
 
     expect(Math.abs(result.net)).toBeLessThanOrEqual(0.01);
@@ -58,10 +58,9 @@ describe('[ALGORITHM] Step-by-step verification', () => {
       [{ symbol: 'A', shares: 50.01 }],
       { A: 1.0 },
       { A: 100 },
-      { fractional: true, band: 0.001, minNotional: 0 },
+      { fractional: true, band: 0.001, minNotional: 0 }
     );
 
     expect(result.orders).toHaveLength(0);
   });
 });
-

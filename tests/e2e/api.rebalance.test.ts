@@ -89,4 +89,3 @@ describe('POST /api/rebalance', () => {
     expect(data.error).toBe('Invalid request');
   });
 });
-

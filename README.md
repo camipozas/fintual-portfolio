@@ -31,6 +31,7 @@ npm test:watch
 ## API Usage
 
 You can test the API using:
+
 - **Web Form**: Visit `http://localhost:3000` and fill out the interactive form
 - **cURL/API client**: See example below
 
@@ -94,10 +95,10 @@ curl -X POST http://localhost:3000/api/rebalance \
       "side": "BUY",
       "shares": 10.666667,
       "price": 180,
-      "notional": 1920.00
+      "notional": 1920.0
     }
   ],
-  "net": 0.00,
+  "net": 0.0,
   "totalValue": 4700
 }
 ```
@@ -122,12 +123,14 @@ Minimum order value in dollars. Orders with notional value below this threshold 
 Minimalist design with clear separation of concerns:
 
 ### Backend
+
 - **helpers/**: Pure functions (weights, orders)
 - **services/**: Business logic (plan function)
 - **dto/**: Types and validation schemas
 - **api/**: Next.js route handler
 
 ### Frontend (Tailwind CSS)
+
 - **components/rebalance/**: UI components with single responsibility
   - `PositionList.tsx`: Manages position inputs
   - `AllocationList.tsx`: Manages allocation inputs with validation
@@ -141,6 +144,7 @@ Minimalist design with clear separation of concerns:
   - `InfoIcon.tsx`: Information icon for tooltips
 
 ### UX Features
+
 - 📊 Real-time validation of allocation weights (must sum to 1.0)
 - 💡 Contextual tooltips on every section explaining their purpose
 - 🎨 Visual feedback with color-coded states (green/yellow/red)

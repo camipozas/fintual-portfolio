@@ -12,10 +12,7 @@ export function Tooltip({ content, children }: Props) {
 
   return (
     <div className="relative inline-block">
-      <div
-        onMouseEnter={() => setShow(true)}
-        onMouseLeave={() => setShow(false)}
-      >
+      <div onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
         {children}
       </div>
       {show && (
@@ -27,4 +24,3 @@ export function Tooltip({ content, children }: Props) {
     </div>
   );
 }
-

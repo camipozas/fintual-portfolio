@@ -25,4 +25,3 @@ export interface PlanResult {
   net: number;
   totalValue: number;
 }
-

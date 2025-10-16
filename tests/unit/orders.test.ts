@@ -19,9 +19,9 @@ describe('[HELPERS] Orders', () => {
         minNotional: 0,
       });
 
-      const sellOrders = orders.filter(o => o.side === 'SELL');
-      const buyOrders = orders.filter(o => o.side === 'BUY');
-      
+      const sellOrders = orders.filter((o) => o.side === 'SELL');
+      const buyOrders = orders.filter((o) => o.side === 'BUY');
+
       if (sellOrders.length > 0 && buyOrders.length > 0) {
         const lastSellIndex = orders.lastIndexOf(sellOrders[sellOrders.length - 1]!);
         const firstBuyIndex = orders.indexOf(buyOrders[0]!);
@@ -41,7 +41,7 @@ describe('[HELPERS] Orders', () => {
         minNotional: 10,
       });
 
-      expect(orders.every(o => o.notional >= 10)).toBe(true);
+      expect(orders.every((o) => o.notional >= 10)).toBe(true);
     });
 
     it('should sort by notional within same side', () => {
@@ -60,7 +60,7 @@ describe('[HELPERS] Orders', () => {
         minNotional: 0,
       });
 
-      const sellOrders = orders.filter(o => o.side === 'SELL');
+      const sellOrders = orders.filter((o) => o.side === 'SELL');
       for (let i = 1; i < sellOrders.length; i++) {
         expect(sellOrders[i - 1]!.notional).toBeGreaterThanOrEqual(sellOrders[i]!.notional);
       }
@@ -114,4 +114,3 @@ describe('[HELPERS] Orders', () => {
     });
   });
 });
-
